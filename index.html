@@ -181,8 +181,9 @@
   @media (prefers-reduced-motion: reduce) { .vox-caption span { position: static; opacity: 1; } .vox-caption span:nth-child(n+2) { display: none; } }
 
   /* ventures (from A) */
-  .ventures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  @media (max-width: 900px) { .ventures { grid-template-columns: 1fr; } }
+  .ventures { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
+  @media (max-width: 1100px) { .ventures { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .ventures { grid-template-columns: 1fr; } }
   .vcard { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper-2); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
   .vcard:hover { transform: translateY(-5px); box-shadow: 0 18px 36px rgba(26,29,33,0.1); }
   .vcard .media { aspect-ratio: 4/3; overflow: hidden; position: relative; background: var(--ink); }
@@ -273,11 +274,11 @@
       </div>
       <div class="wall-row rev">
         <video muted loop playsinline autoplay preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video>
-        <img src="assets/risematcha.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/senolytic-ad-poster.jpg" src="assets/senolytic-ad.mp4"></video>
         <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
         <img src="assets/david.jpg" alt="">
         <video muted loop playsinline preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video>
-        <img src="assets/risematcha.jpg" alt="">
+        <video muted loop playsinline preload="metadata" poster="assets/senolytic-ad-poster.jpg" src="assets/senolytic-ad.mp4"></video>
         <video muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
         <img src="assets/david.jpg" alt="">
       </div>
@@ -486,6 +487,15 @@
           <span class="badge">GROWTH AGENCY</span>
         </div>
       </article>
+      <article class="vcard reveal">
+        <div class="media"><video autoplay muted loop playsinline preload="metadata" poster="assets/senolytic-ad-poster.jpg" src="assets/senolytic-ad.mp4"></video></div>
+        <div class="body">
+          <span class="yrs">2022 — 2025</span>
+          <h3>Senolytic Lab</h3>
+          <p>Longevity supplements built and sold in Japan — product, manufacturing, e-commerce and operations end-to-end.</p>
+          <span class="badge">JAPAN E-COMMERCE</span>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -498,7 +508,7 @@
     <div class="record">
       <div class="row now reveal"><span class="yrs">2026 —</span><span class="who">Voxtiva <small>Founder</small></span><span class="what">Real-time AI meeting translation. In build.</span></div>
       <div class="row now reveal"><span class="yrs">2025 —</span><span class="who">Amnis <small>Founder</small></span><span class="what">Private, on-device AI dictation. In build.</span></div>
-      <div class="row reveal"><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder</small></span><span class="what">Science-based consumer brand; end-to-end across product, manufacturing, e-commerce and operations.</span></div>
+      <div class="row reveal"><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder &amp; Director</small></span><span class="what">Longevity supplements built and sold in Japan — product, manufacturing, e-commerce and operations.</span></div>
       <div class="row reveal"><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency for e-commerce and consumer brands. Managed roughly $2M in paid spend across Meta, Google and TikTok.</span></div>
       <div class="row reveal"><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
       <div class="row reveal"><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce built from zero to $2.5M+ annual revenue, with a 20+ person team.</span></div>
