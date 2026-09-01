@@ -3,34 +3,663 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YuniqueS — design preview</title>
-<meta name="robots" content="noindex">
+<title>YuniqueS — AI products, built by an operator</title>
+<meta name="description" content="YuniqueS Ltd builds AI-native products — Amnis and Voxtiva — on nine years of consumer e-commerce operations. Selective e-commerce advisory.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23CF3721'/><text x='50' y='68' font-size='52' font-family='Georgia,serif' font-weight='900' fill='%23F7F6F2' text-anchor='middle'>Y</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;750&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --paper: #F7F6F2; --paper-2: #FCFBF8;
+    --ink: #1A1D21; --ink-soft: #4A4E52; --muted: #7A7E76; --line: #DCD9D0;
+    --seal: #CF3721; --seal-deep: #A82A17;
+    --navy: #0E1B33; --teal: #0d9488;
+    --display: "Besley", Georgia, serif;
+    --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", Menlo, monospace;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #131518; color: #F2F1ED; font-family: "Hanken Grotesk", sans-serif; min-height: 100svh; display: grid; place-items: center; padding: 2rem; }
-  .box { max-width: 46rem; width: 100%; }
-  .kick { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: #8A8D92; margin-bottom: 0.8rem; }
-  h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 750; letter-spacing: -0.02em; margin-bottom: 1.8rem; }
-  a.opt { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; text-decoration: none; color: inherit; border: 1px solid #2A2D33; border-radius: 12px; padding: 1.3rem 1.5rem; transition: 0.18s ease; }
-  a.opt + a.opt { margin-top: 0.8rem; }
-  a.opt:hover { border-color: #E14328; transform: translateY(-2px); }
-  a.opt b { font-size: 1.15rem; }
-  a.opt span { color: #9A9DA2; font-size: 0.9rem; }
-  a.opt .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; letter-spacing: 0.14em; color: #E14328; }
-  p.note { margin-top: 1.6rem; color: #74777C; font-size: 0.85rem; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--seal); color: var(--paper); }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; border-radius: 2px; }
+  img, video { max-width: 100%; display: block; }
+  .wrap { max-width: 74rem; margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+  header { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: baseline; justify-content: space-between; padding: 0.9rem 0; gap: 1rem; }
+  .wordmark { font-family: var(--display); font-weight: 800; font-size: 1.15rem; text-decoration: none; }
+  .wordmark span { color: var(--seal); }
+  .nav-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
+  nav.links { display: flex; gap: 1.4rem; }
+  nav.links a { text-decoration: none; font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); }
+  nav.links a:hover { color: var(--seal); }
+  @media (max-width: 640px) { .nav-meta { display: none; } nav.links { gap: 1rem; } nav.links a:nth-child(2) { display: none; } }
+
+  /* hero — light media wall (from B) behind A's layout */
+  .hero { position: relative; min-height: max(76vh, 33rem); display: flex; align-items: center; overflow: hidden; }
+  .wall { position: absolute; inset: -4% -2%; display: flex; flex-direction: column; justify-content: center; gap: 1rem; }
+  .wall-row { display: flex; gap: 1rem; width: max-content; animation: drift 65s linear infinite; }
+  .wall-row.rev { animation-direction: reverse; animation-duration: 80s; }
+  @keyframes drift { to { transform: translateX(-50%); } }
+  .wall-row > * { width: clamp(150px, 18vw, 260px); aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; flex: none; }
+  @media (prefers-reduced-motion: reduce) { .wall-row { animation: none; } }
+  .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 88%, transparent) 0%, color-mix(in srgb, var(--paper) 80%, transparent) 50%, color-mix(in srgb, var(--paper) 96%, transparent) 100%); }
+  .hero-inner { position: relative; z-index: 1; width: 100%; padding: 4rem 0 4.5rem; }
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start; }
+  @media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; } }
+  .eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  h1 { font-family: var(--display); font-weight: 830; font-size: clamp(2.6rem, 6.5vw, 4.6rem); line-height: 1.03; letter-spacing: -0.01em; max-width: 14ch; }
+  h1 em { font-style: italic; font-weight: 600; color: var(--seal); }
+  h1 .line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  h1 .line > span { display: inline-block; transform: translateY(112%); animation: rise 0.85s cubic-bezier(0.2, 0.6, 0.2, 1) forwards; }
+  h1 .line:nth-child(2) > span { animation-delay: 0.12s; }
+  h1 .line:nth-child(3) > span { animation-delay: 0.24s; }
+  @keyframes rise { to { transform: translateY(0); } }
+  .lede { max-width: 60ch; margin-top: 1.6rem; font-size: 1.15rem; color: var(--ink-soft); opacity: 0; animation: fadeup 0.7s ease 0.5s forwards; }
+  .lede strong { color: var(--ink); }
+  .hero-ctas { margin-top: 2.2rem; display: flex; gap: 0.9rem; flex-wrap: wrap; opacity: 0; animation: fadeup 0.7s ease 0.65s forwards; }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { h1 .line > span { transform: none; } .lede, .hero-ctas, .hero-side { opacity: 1 !important; } }
+  .btn { display: inline-block; text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 0.7rem 1.3rem; border-radius: 3px; border: 1.5px solid var(--ink); transition: 0.15s ease; }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--seal); border-color: var(--seal); }
+  .btn.ghost:hover { border-color: var(--seal); color: var(--seal); }
+
+  .hero-side { opacity: 0; animation: fadeup 0.8s ease 0.8s forwards; display: flex; flex-direction: column; gap: 0.9rem; align-self: center; background: color-mix(in srgb, var(--paper-2) 82%, transparent); backdrop-filter: blur(4px); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.3rem; }
+  .hero-side .kv { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 0.55rem; display: flex; justify-content: space-between; gap: 2.2rem; min-width: 15.5rem; }
+  .hero-side .kv:last-child { border-bottom: 0; padding-bottom: 0; }
+  .hero-side .kv b { color: var(--ink); font-weight: 600; }
+  .hero-side .kv b.red { color: var(--seal); }
+  @media (max-width: 760px) { .hero-side { display: none; } }
+
+  /* marquee */
+  .marquee { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 0.85rem 0; }
+  .marquee-track { display: inline-block; animation: slide 32s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee span { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.18em; color: var(--ink-soft); }
+  .marquee b { color: var(--seal); font-weight: 500; padding: 0 1.2rem; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+  /* stats — wipe reveal, stronger emphasis */
+  .stats { padding-top: clamp(3.5rem, 8vh, 5.5rem); }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; border-top: 1px solid var(--ink); padding-top: 2.2rem; }
+  @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat .num-clip { overflow: hidden; }
+  .stat .num { font-family: var(--display); font-weight: 800; letter-spacing: -0.02em; font-size: clamp(2.8rem, 6vw, 4.6rem); line-height: 1.05; transform: translateY(105%); transition: transform 0.9s cubic-bezier(0.2, 0.65, 0.2, 1); }
+  .stat.in .num { transform: translateY(0); }
+  .stat .num i { font-style: normal; color: var(--seal); }
+  .stat .bar { height: 4px; background: var(--seal); margin-top: 0.7rem; transform: scaleX(0); transform-origin: left; transition: transform 0.8s ease 0.35s; }
+  .stat.in .bar { transform: scaleX(1); }
+  .stat .lbl { margin-top: 0.6rem; font-size: 0.9rem; font-weight: 650; color: var(--ink-soft); letter-spacing: 0.01em; max-width: 22ch; }
+  @media (prefers-reduced-motion: reduce) { .stat .num { transform: none; } .stat .bar { transform: scaleX(1); } }
+
+  /* sections */
+  section { padding-top: clamp(4rem, 9vh, 6.5rem); scroll-margin-top: 3.2rem; }
+  .sec-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.2rem; }
+  .sec-head h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3.4vw, 2.4rem); letter-spacing: -0.01em; }
+  .sec-head h2 em { font-style: italic; font-weight: 600; color: var(--seal); }
+  .sec-head .rule { flex: 1; height: 1px; background: var(--line); position: relative; top: -0.4rem; }
+  .sec-head .stamp { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--seal); border: 1.5px solid var(--seal); border-radius: 3px; padding: 0.2rem 0.5rem; transform: rotate(-2deg); white-space: nowrap; }
+
+  /* scrollytelling products (from A) */
+  .scrolly { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+  .steps { display: flex; flex-direction: column; }
+  .step { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; gap: 1rem; opacity: 0.25; transition: opacity 0.4s ease; }
+  .step.active { opacity: 1; }
+  .step .tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--seal); }
+  .brand-lockup { display: flex; align-items: center; gap: 0.75rem; }
+  .brand-lockup img { height: 2rem; width: auto; }
+  .brand-lockup .nm { font-weight: 800; font-size: 1.9rem; letter-spacing: -0.02em; font-family: var(--body); }
+  .step p { color: var(--ink-soft); max-width: 46ch; }
+  .step .visit { font-family: var(--mono); font-size: 0.82rem; text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 2px; align-self: flex-start; }
+  .step .visit:hover { color: var(--seal); }
+  .sticky-media { position: sticky; top: 10vh; height: 80vh; display: flex; align-items: center; }
+  .media-stack { position: relative; width: 100%; aspect-ratio: 1/1; max-height: 76vh; }
+  .pane { position: absolute; inset: 0; opacity: 0; transform: translateY(4%) scale(0.97); transition: opacity 0.55s ease, transform 0.55s ease; border-radius: 12px; overflow: hidden; }
+  .pane.show { opacity: 1; transform: none; }
+  @media (max-width: 860px) {
+    .scrolly { grid-template-columns: 1fr; }
+    .sticky-media { display: none; }
+    .step { min-height: 0; opacity: 1; gap: 0.9rem; padding-bottom: 2rem; }
+    .m-inline { display: block; margin-top: 1rem; border-radius: 12px; overflow: hidden; }
+  }
+  @media (min-width: 861px) { .m-inline { display: none; } }
+
+  /* amnis mock */
+  .amnis-scene { background: linear-gradient(160deg, #17383B, #0F2A2D 60%, #0B2124); height: 100%; display: flex; align-items: center; justify-content: center; padding: clamp(1rem, 3vw, 2.5rem); position: relative; }
+  .slackwin { background: #FFFFFF; border-radius: 10px; width: min(100%, 30rem); box-shadow: 0 30px 70px rgba(0,0,0,0.45); overflow: hidden; font-size: 0.8rem; }
+  .slackwin .titlebar { background: #F6F5F4; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #E8E6E3; }
+  .slackwin .titlebar i { width: 9px; height: 9px; border-radius: 50%; }
+  .slackwin .titlebar i:nth-child(1) { background: #FF5F57; } .slackwin .titlebar i:nth-child(2) { background: #FEBC2E; } .slackwin .titlebar i:nth-child(3) { background: #28C840; }
+  .slackwin .titlebar b { margin-left: auto; margin-right: auto; color: #444; font-weight: 600; }
+  .slackbody { display: grid; grid-template-columns: 34% 66%; min-height: 15rem; }
+  .slackside { background: #3E1441; color: #D9C4DB; padding: 0.9rem 0.8rem; font-size: 0.78rem; }
+  .slackside .tm { color: #fff; font-weight: 800; margin-bottom: 0.7rem; }
+  .slackside .ch { padding: 0.22rem 0.4rem; border-radius: 4px; }
+  .slackside .ch.on { background: #1264A3; color: #fff; }
+  .slackmain { padding: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .msg { display: flex; gap: 0.55rem; }
+  .msg .av { width: 26px; height: 26px; border-radius: 5px; background: #C7CCD1; flex: none; }
+  .msg b { font-size: 0.78rem; }
+  .msg small { color: #8A8F94; margin-left: 0.35rem; font-size: 0.68rem; }
+  .msg p { font-size: 0.78rem; color: #2E3338; }
+  .composer { margin-top: auto; border: 1.5px solid #D9D6D2; border-radius: 8px; padding: 0.6rem 0.7rem; min-height: 4.6em; font-family: var(--mono); font-size: 0.75rem; color: #2E3338; line-height: 1.55; }
+  .composer .caret { display: inline-block; width: 2px; height: 0.95em; background: var(--seal); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .pill { position: absolute; left: 50%; transform: translateX(-50%); bottom: clamp(0.8rem, 4vh, 2.2rem); background: #fff; border-radius: 999px; box-shadow: 0 14px 34px rgba(0,0,0,0.35); display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0.9rem; }
+  .pill .ric { width: 26px; height: 26px; }
+  .pill .auto { font-weight: 700; font-size: 0.8rem; color: #1A1D21; display: flex; align-items: center; gap: 4px; }
+  .pillwave { display: flex; gap: 3px; align-items: center; height: 20px; }
+  .pillwave i { width: 3px; border-radius: 2px; background: #1A1D21; animation: wv 1.05s ease-in-out infinite; }
+  .pillwave i:nth-child(1) { height: 7px; } .pillwave i:nth-child(2) { height: 14px; animation-delay: 0.1s; } .pillwave i:nth-child(3) { height: 18px; animation-delay: 0.2s; } .pillwave i:nth-child(4) { height: 10px; animation-delay: 0.3s; } .pillwave i:nth-child(5) { height: 16px; animation-delay: 0.4s; } .pillwave i:nth-child(6) { height: 8px; animation-delay: 0.5s; }
+  @keyframes wv { 0%,100% { transform: scaleY(0.55); } 50% { transform: scaleY(1.25); } }
+
+  /* voxtiva pane */
+  .vox-scene { background: #101312; height: 100%; padding: clamp(1rem, 3vw, 2.2rem); display: flex; flex-direction: column; justify-content: center; gap: 0.8rem; }
+  .vox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .vox-grid .cell { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #262B29; }
+  .vox-grid video, .vox-grid .cell-fill { width: 100%; aspect-ratio: 1; object-fit: cover; }
+  .cell-fill { background: #1A1F1D; display: grid; place-items: center; }
+  .cell-fill img { width: 42%; opacity: 0.95; border-radius: 10px; }
+  .cell .nm { position: absolute; left: 8px; bottom: 8px; background: rgba(0,0,0,0.55); color: #fff; font-family: var(--mono); font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.06em; }
+  .vox-caption { background: #1A1F1D; border: 1px solid #262B29; border-radius: 8px; padding: 0.8rem 1rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.55; color: #C9D2CE; position: relative; overflow: hidden; min-height: 4.9em; }
+  .vox-caption span { position: absolute; inset: 0.8rem 1rem; opacity: 0; animation: cap 12s infinite; }
+  .vox-caption span:nth-child(2) { animation-delay: 4s; }
+  .vox-caption span:nth-child(3) { animation-delay: 8s; }
+  @keyframes cap { 0% { opacity: 0; } 4% { opacity: 1; } 30% { opacity: 1; } 34% { opacity: 0; } 100% { opacity: 0; } }
+  .vox-caption b { color: var(--teal); font-weight: 500; }
+  @media (prefers-reduced-motion: reduce) { .vox-caption span { position: static; opacity: 1; } .vox-caption span:nth-child(n+2) { display: none; } }
+
+  /* ventures (from A) */
+  .ventures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  @media (max-width: 900px) { .ventures { grid-template-columns: 1fr; } }
+  .vcard { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper-2); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .vcard:hover { transform: translateY(-5px); box-shadow: 0 18px 36px rgba(26,29,33,0.1); }
+  .vcard .media { aspect-ratio: 4/3; overflow: hidden; position: relative; background: var(--ink); }
+  .vcard .media img, .vcard .media video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .vcard:hover .media img { transform: scale(1.05); }
+  .vcard .body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+  .vcard .yrs { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--muted); }
+  .vcard h3 { font-family: var(--display); font-weight: 800; font-size: 1.35rem; }
+  .vcard p { color: var(--ink-soft); font-size: 0.95rem; }
+  .vcard .badge { margin-top: 0.7rem; align-self: flex-start; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--seal); border: 1.5px solid var(--seal); border-radius: 3px; padding: 0.15rem 0.5rem; transform: rotate(-1.5deg); }
+  .sr-media { background: #101312; height: 100%; display: grid; place-items: center; padding: 2rem; }
+  .sr-media img { width: 55%; filter: invert(1) hue-rotate(180deg); }
+
+  /* record */
+  .record { border-top: 1px solid var(--ink); }
+  .row { display: grid; grid-template-columns: 7.5rem 13rem 1fr; gap: 1.5rem; padding: 1.05rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .row .yrs { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+  .row .who { font-weight: 700; }
+  .row .who small { display: block; font-weight: 500; color: var(--muted); font-size: 0.8rem; }
+  .row .what { color: var(--ink-soft); font-size: 0.98rem; }
+  .row.now .yrs::after { content: "NOW"; font-size: 0.62rem; color: var(--seal); border: 1px solid var(--seal); border-radius: 3px; padding: 0.05rem 0.3rem; margin-left: 0.5rem; letter-spacing: 0.1em; }
+  @media (max-width: 760px) { .row { grid-template-columns: 1fr; gap: 0.15rem; padding: 1rem 0; } }
+
+  /* advisory / about */
+  .advisory-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; }
+  @media (max-width: 760px) { .advisory-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+  .advisory p { max-width: 62ch; color: var(--ink-soft); }
+  .advisory p + p { margin-top: 1rem; }
+  .advisory strong { color: var(--ink); }
+  ul.scope { list-style: none; border-top: 1px solid var(--ink); }
+  ul.scope li { padding: 0.85rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.98rem; }
+  ul.scope li::before { content: "→"; color: var(--seal); font-family: var(--mono); font-size: 0.85rem; }
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-inner p { color: var(--ink-soft); max-width: 62ch; }
+  .about-inner p + p { margin-top: 1rem; }
+  .about-inner .sig { margin-top: 2rem; font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.3rem; color: var(--ink); }
+  .portrait { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); position: relative; }
+  .portrait img { width: 100%; }
+  .portrait figcaption { position: absolute; left: 0.9rem; bottom: 0.9rem; background: color-mix(in srgb, var(--ink) 82%, transparent); color: var(--paper); font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em; padding: 0.35rem 0.6rem; border-radius: 4px; }
+
+  /* contact */
+  .contact { background: var(--ink); color: var(--paper); margin-top: clamp(4rem, 9vh, 6.5rem); }
+  .contact-inner { padding: clamp(3rem, 7vh, 4.5rem) 0; display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: center; }
+  @media (max-width: 760px) { .contact-inner { grid-template-columns: 1fr; } }
+  .contact h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .contact p { color: #B9BCB6; margin-top: 0.8rem; max-width: 50ch; }
+  .contact .btn { border-color: var(--paper); color: var(--paper); }
+  .contact .btn.primary { background: var(--seal); border-color: var(--seal); }
+  .contact .btn.primary:hover { background: var(--paper); color: var(--seal); }
+  footer { background: var(--ink); color: #8B8E88; border-top: 1px solid #33373B; }
+  .foot-inner { padding: 1.4rem 0 1.6rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; }
+  footer a { color: #B9BCB6; text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
-  <div class="box">
-    <p class="kick">YUNIQUES.COM — PRIVATE PREVIEW</p>
-    <h1>Pick a direction</h1>
-    <a class="opt" href="a.html"><span><span class="tag">A</span> &nbsp;<b>Studio Seal</b><br><span>Paper &amp; ink editorial · scroll-driven product showcase · ink-stream hero</span></span></a>
-    <a class="opt" href="b.html"><span><span class="tag">B</span> &nbsp;<b>Showreel</b><br><span>Dark cinematic · drifting media wall · full-screen product scenes</span></span></a>
-    <a class="opt" href="c.html"><span><span class="tag">C</span> &nbsp;<b>Catalogue</b><br><span>Warm gallery · big imagery &amp; parallax bands · serif accents</span></span></a>
-    <p class="note">Temporary chooser — the selected design becomes the live site.</p>
+
+<header>
+  <div class="wrap nav">
+    <a class="wordmark" href="#top">Yunique<span>S</span></a>
+    <span class="nav-meta">AI PRODUCTS · E-COMMERCE</span>
+    <nav class="links" aria-label="Sections">
+      <a href="#building">Products</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#advisory">Advisory</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wall" aria-hidden="true">
+      <div class="wall-row">
+        <img src="assets/craftease-kit.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video>
+        <img src="assets/risematcha-uji.jpg" alt="">
+        <img src="assets/risematcha-product.jpg" alt="">
+        <img src="assets/craftease-kit.jpg" alt="">
+        <video muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video>
+        <img src="assets/risematcha-uji.jpg" alt="">
+        <img src="assets/risematcha-product.jpg" alt="">
+      </div>
+      <div class="wall-row rev">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video>
+        <img src="assets/risematcha.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
+        <img src="assets/david.jpg" alt="">
+        <video muted loop playsinline preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video>
+        <img src="assets/risematcha.jpg" alt="">
+        <video muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
+        <img src="assets/david.jpg" alt="">
+      </div>
+    </div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">YuniqueS Ltd — AI product company</p>
+          <h1>
+            <span class="line"><span>Built on</span></span>
+            <span class="line"><span>commerce.</span></span>
+            <span class="line"><span>Building with <em>AI</em>.</span></span>
+          </h1>
+          <p class="lede">
+            YuniqueS builds <strong>AI-native software products</strong> — Amnis for
+            private dictation, Voxtiva for real-time meeting translation — on the back
+            of <strong>nine years running consumer e-commerce at scale</strong>: a 20+
+            person company, $2.5M+ in annual revenue, $2M of paid media managed.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#building">See what's in build</a>
+            <a class="btn ghost" href="#advisory">Work together</a>
+          </div>
+        </div>
+        <div class="hero-side" aria-hidden="true">
+          <div class="kv"><span>PRODUCTS</span><b>Amnis · Voxtiva</b></div>
+          <div class="kv"><span>PEAK REVENUE</span><b class="red">$2.5M+ / yr</b></div>
+          <div class="kv"><span>PAID MEDIA</span><b>$2M managed</b></div>
+          <div class="kv"><span>TEAM LED</span><b>20+ people</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>AMNIS <b>·</b> VOXTIVA <b>·</b> CRAFT-EASE <b>·</b> RISE MATCHA <b>·</b> SOCIAL ROOT <b>·</b> E-COMMERCE ADVISORY <b>·</b> </span><span>AMNIS <b>·</b> VOXTIVA <b>·</b> CRAFT-EASE <b>·</b> RISE MATCHA <b>·</b> SOCIAL ROOT <b>·</b> E-COMMERCE ADVISORY <b>·</b> </span>
+    </div>
+  </div>
+
+  <div class="wrap stats">
+    <div class="stats-grid">
+      <div class="stat"><div class="num-clip"><div class="num"><i>$</i>2.5M+</div></div><div class="bar"></div><div class="lbl">peak annual revenue, own e-commerce</div></div>
+      <div class="stat"><div class="num-clip"><div class="num"><i>$</i>2M</div></div><div class="bar"></div><div class="lbl">paid media managed across Meta, Google &amp; TikTok</div></div>
+      <div class="stat"><div class="num-clip"><div class="num">20<i>+</i></div></div><div class="bar"></div><div class="lbl">people led across product, ops &amp; marketing</div></div>
+      <div class="stat"><div class="num-clip"><div class="num">9<i>&thinsp;yrs</i></div></div><div class="bar"></div><div class="lbl">operating consumer brands end-to-end</div></div>
+    </div>
+  </div>
+
+  <section id="building" class="wrap">
+    <div class="sec-head">
+      <h2>Now building <em>with AI</em></h2>
+      <div class="rule"></div>
+      <span class="stamp">AI-native</span>
+    </div>
+
+    <div class="scrolly">
+      <div class="steps">
+        <div class="step" data-pane="0">
+          <span class="tag">● AI dictation · on-device privacy</span>
+          <div class="brand-lockup">
+            <img src="assets/amnis-icon-black.png" alt="">
+            <span class="nm">Amnis</span>
+          </div>
+          <p>
+            Making speech a better way to write. Press a key, speak, and AI turns your
+            words into polished text — directly in whatever app is open. Built for
+            privacy-sensitive professionals: speech is processed on your device, not
+            someone else's server.
+          </p>
+          <a class="visit" href="https://amnis.one" target="_blank" rel="noopener">amnis.one ↗</a>
+          <div class="m-inline">
+            <div class="amnis-scene" style="aspect-ratio: 1; height: auto;">
+              <div class="slackwin">
+                <div class="titlebar"><i></i><i></i><i></i><b># leadership</b></div>
+                <div class="slackbody">
+                  <div class="slackside">
+                    <div class="tm">Acme</div>
+                    <div class="ch"># general</div>
+                    <div class="ch on"># leadership</div>
+                    <div class="ch"># design</div>
+                  </div>
+                  <div class="slackmain">
+                    <div class="msg"><span class="av"></span><div><b>Daniel Kim</b><small>10:42</small><p>Any update on the review?</p></div></div>
+                    <div class="composer"><span class="typed-m"></span><span class="caret"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="pill">
+                <img class="ric" src="assets/amnis-icon-black.png" alt="">
+                <span class="pillwave"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="auto">✦ Auto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" data-pane="1">
+          <span class="tag" style="color: var(--teal);">● AI translation · real-time</span>
+          <div class="brand-lockup">
+            <img src="assets/voxtiva-symbol.svg" alt="" style="border-radius: 6px;">
+            <span class="nm">Voxtiva</span>
+          </div>
+          <p>
+            Real-time AI translation for multilingual meetings. Everyone speaks their
+            own language; everyone reads yours. Works inside the calls you already have
+            — Google Meet, Microsoft Teams and Zoom.
+          </p>
+          <a class="visit" href="https://voxtiva.com" target="_blank" rel="noopener">voxtiva.com ↗</a>
+          <div class="m-inline">
+            <div class="vox-scene" style="height: auto;">
+              <div class="vox-grid">
+                <div class="cell"><video autoplay muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video><span class="nm">HOST · EN</span></div>
+                <div class="cell"><video autoplay muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video><span class="nm">TOKYO · JA</span></div>
+                <div class="cell"><video autoplay muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-third-poster.jpg" src="assets/voxtiva-tile-third.mp4"></video><span class="nm">MADRID · ES</span></div>
+                <div class="cell"><div class="cell-fill"><img src="assets/voxtiva-symbol.svg" alt=""></div><span class="nm">LIVE CAPTIONS</span></div>
+              </div>
+              <div class="vox-caption">
+                <span>「金曜までにお送りします」 → <b>"We'll send it by Friday."</b></span>
+                <span>"¿Podemos ver los números?" → <b>"Can we look at the numbers?"</b></span>
+                <span>「予算は問題ありません」 → <b>"The budget is not a problem."</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticky-media" aria-hidden="true">
+        <div class="media-stack">
+          <div class="pane amnis-pane show">
+            <div class="amnis-scene">
+              <div class="slackwin">
+                <div class="titlebar"><i></i><i></i><i></i><b># leadership</b></div>
+                <div class="slackbody">
+                  <div class="slackside">
+                    <div class="tm">Acme</div>
+                    <div class="ch"># general</div>
+                    <div class="ch on"># leadership</div>
+                    <div class="ch"># design</div>
+                  </div>
+                  <div class="slackmain">
+                    <div class="msg"><span class="av"></span><div><b>Daniel Kim</b><small>10:42</small><p>Any update on the review?</p></div></div>
+                    <div class="composer"><span class="typed-m"></span><span class="caret"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="pill">
+                <img class="ric" src="assets/amnis-icon-black.png" alt="">
+                <span class="pillwave"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="auto">✦ Auto</span>
+              </div>
+            </div>
+          </div>
+          <div class="pane vox-pane">
+            <div class="vox-scene">
+              <div class="vox-grid">
+                <div class="cell"><video muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video><span class="nm">HOST · EN</span></div>
+                <div class="cell"><video muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video><span class="nm">TOKYO · JA</span></div>
+                <div class="cell"><video muted loop playsinline preload="metadata" poster="assets/voxtiva-tile-third-poster.jpg" src="assets/voxtiva-tile-third.mp4"></video><span class="nm">MADRID · ES</span></div>
+                <div class="cell"><div class="cell-fill"><img src="assets/voxtiva-symbol.svg" alt=""></div><span class="nm">LIVE CAPTIONS</span></div>
+              </div>
+              <div class="vox-caption">
+                <span>「金曜までにお送りします」 → <b>"We'll send it by Friday."</b></span>
+                <span>"¿Podemos ver los números?" → <b>"Can we look at the numbers?"</b></span>
+                <span>「予算は問題ありません」 → <b>"The budget is not a problem."</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ventures" class="wrap">
+    <div class="sec-head">
+      <h2>Built &amp; run before</h2>
+      <div class="rule"></div>
+      <span class="stamp">2016 — 2025</span>
+    </div>
+    <div class="ventures">
+      <article class="vcard reveal">
+        <div class="media"><img src="assets/craftease-kit.jpg" alt="Craft-Ease paint-by-numbers kit: canvas, numbered paints and brushes" loading="lazy"></div>
+        <div class="body">
+          <span class="yrs">2016 — 2025</span>
+          <h3>Craft-Ease</h3>
+          <p>Paint-by-numbers and diamond-painting kits, sold worldwide. Built from zero into a 20+ person company.</p>
+          <span class="badge">$2.5M+ ANNUAL REVENUE</span>
+        </div>
+      </article>
+      <article class="vcard reveal">
+        <div class="media"><video autoplay muted loop playsinline preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video></div>
+        <div class="body">
+          <span class="yrs">2018 — 2020</span>
+          <h3>RISE MATCHA</h3>
+          <p>Organic, ceremonial-grade matcha from Uji, Japan — brand, packaging and e-commerce built end-to-end.</p>
+          <span class="badge">D2C BRAND</span>
+        </div>
+      </article>
+      <article class="vcard reveal">
+        <div class="media"><div class="sr-media"><img src="assets/social-root-logo.png" alt="Social Root logo"></div></div>
+        <div class="body">
+          <span class="yrs">2021 — 2025</span>
+          <h3>Social Root Marketing</h3>
+          <p>A digital marketing agency for e-commerce and consumer brands — strategy, creative and roughly $2M in paid spend.</p>
+          <span class="badge">GROWTH AGENCY</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="record" class="wrap">
+    <div class="sec-head">
+      <h2>Track record</h2>
+      <div class="rule"></div>
+      <span class="stamp">2008 — now</span>
+    </div>
+    <div class="record">
+      <div class="row now reveal"><span class="yrs">2026 —</span><span class="who">Voxtiva <small>Founder</small></span><span class="what">Real-time AI meeting translation. In build.</span></div>
+      <div class="row now reveal"><span class="yrs">2025 —</span><span class="who">Amnis <small>Founder</small></span><span class="what">Private, on-device AI dictation. In build.</span></div>
+      <div class="row reveal"><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder</small></span><span class="what">Science-based consumer brand; end-to-end across product, manufacturing, e-commerce and operations.</span></div>
+      <div class="row reveal"><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency for e-commerce and consumer brands. Managed roughly $2M in paid spend across Meta, Google and TikTok.</span></div>
+      <div class="row reveal"><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
+      <div class="row reveal"><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce built from zero to $2.5M+ annual revenue, with a 20+ person team.</span></div>
+      <div class="row reveal"><span class="yrs">2008 — 16</span><span class="who">FIS <small>Sales &amp; pre-sales</small></span><span class="what">Eight years selling electronic trading and risk systems to banks and brokers across APAC.</span></div>
+    </div>
+  </section>
+
+  <section id="advisory" class="wrap">
+    <div class="sec-head">
+      <h2>E-commerce advisory</h2>
+      <div class="rule"></div>
+      <span class="stamp">Selective</span>
+    </div>
+    <div class="advisory-grid advisory">
+      <div>
+        <p>
+          <strong>YuniqueS advises a select number of companies</strong> starting or
+          scaling e-commerce. The advice comes from operating, not theory: nine years
+          running our own stores, an agency's worth of paid-media spend, and the
+          unglamorous parts — logistics, support, cash flow.
+        </p>
+        <p>
+          Recent work includes helping an established consumer brand stand up its
+          e-commerce operation from scratch. Engagements are scoped, hands-on and
+          honest about what will and won't move the needle.
+        </p>
+      </div>
+      <ul class="scope">
+        <li>Launch: platform, catalogue, payments, fulfilment</li>
+        <li>Paid acquisition on Meta, Google and TikTok</li>
+        <li>Conversion, retention and unit economics</li>
+        <li>AI-enabled workflows for lean teams</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="sec-head">
+      <h2>About the founder</h2>
+      <div class="rule"></div>
+      <span class="stamp">Van David Thai</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-inner">
+        <p>
+          I'm Van David Thai, founder of YuniqueS — a Solvay-trained economist with
+          nearly twenty years on the commercial side of technology. Eight years selling
+          electronic trading systems to financial institutions, then nine years founding
+          and scaling my own consumer businesses, leading teams of 20+ across product,
+          marketing, operations and supply chain.
+        </p>
+        <p>
+          Since 2025 I build AI products full-time, working with AI daily — designing,
+          coding and shipping with it. YuniqueS Ltd is the company behind that work:
+          the products above, and advisory engagements where our operating experience
+          is useful.
+        </p>
+        <p class="sig">— Van David Thai</p>
+      </div>
+      <figure class="portrait reveal">
+        <img src="assets/david.jpg" alt="Van David Thai, founder of YuniqueS" loading="lazy">
+        <figcaption>VAN DAVID THAI · FOUNDER</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<div class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <div>
+      <h2>Talk to YuniqueS</h2>
+      <p>For advisory work, partnerships, product or investor conversations — the fastest route is LinkedIn.</p>
+    </div>
+    <div><a class="btn primary" href="https://www.linkedin.com/in/van-david-t-0627513" rel="me">Message on LinkedIn</a></div>
+  </div>
+  <footer>
+    <div class="wrap foot-inner">
+      <span>© 2026 YUNIQUES LTD. ALL RIGHTS RESERVED.</span>
+      <a href="https://www.linkedin.com/in/van-david-t-0627513">LINKEDIN ↗</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* reveals + stats */
+  const els = document.querySelectorAll(".reveal, .stat");
+  if ("IntersectionObserver" in window && !reduced) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { threshold: 0.15 });
+    els.forEach((el) => io.observe(el));
+    setTimeout(() => els.forEach((el) => el.classList.add("in")), 3500);
+  } else {
+    els.forEach((el) => el.classList.add("in"));
+  }
+
+  /* scrollytelling: nearest-step tracking */
+  const steps = document.querySelectorAll(".step");
+  const panes = document.querySelectorAll(".sticky-media .pane");
+  const voxVideos = document.querySelectorAll(".vox-pane video");
+  const setPane = (i) => {
+    panes.forEach((p, idx) => p.classList.toggle("show", idx === i));
+    voxVideos.forEach((v) => { if (i === 1) { v.play().catch(() => {}); } else { v.pause(); } });
+  };
+  if (steps.length && panes.length) {
+    let current = -1, ticking = false;
+    const track = () => {
+      const mid = window.innerHeight / 2;
+      let best = 0, bestDist = Infinity;
+      steps.forEach((s, i) => {
+        const r = s.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      if (best !== current) {
+        current = best;
+        steps.forEach((s, i) => s.classList.toggle("active", i === best));
+        setPane(best);
+      }
+      ticking = false;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(track); } }, { passive: true });
+    track();
+  }
+
+  /* typed text in amnis composers */
+  const targets = document.querySelectorAll(".typed-m");
+  if (targets.length) {
+    const text = "I moved the review to Thursday — full notes are in the doc.";
+    if (reduced) {
+      targets.forEach((t) => (t.textContent = text));
+    } else {
+      let i = 0, dir = 1;
+      const step = () => {
+        targets.forEach((t) => (t.textContent = text.slice(0, i)));
+        let delay = dir > 0 ? 45 : 14;
+        if (dir > 0 && i === text.length) { dir = -1; delay = 2600; }
+        else if (dir < 0 && i === 0) { dir = 1; delay = 700; }
+        else i += dir;
+        setTimeout(step, delay);
+      };
+      step();
+    }
+  }
+
+  /* pause offscreen videos */
+  if ("IntersectionObserver" in window) {
+    const vio = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const v = e.target;
+        if (v.closest(".vox-pane")) continue; // managed by scrollytelling
+        if (e.isIntersecting) v.play?.().catch(() => {});
+        else v.pause?.();
+      }
+    }, { threshold: 0.1 });
+    document.querySelectorAll("video").forEach((v) => vio.observe(v));
+  }
+})();
+</script>
+
 </body>
 </html>
