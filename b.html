@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YuniqueS — AI products, built by an operator</title>
+<meta name="description" content="YuniqueS Ltd builds AI-native products — Amnis and Voxtiva — on nine years of consumer e-commerce operations. Selective e-commerce advisory.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23CF3721'/><text x='50' y='68' font-size='52' font-family='Georgia,serif' font-weight='900' fill='%23F7F6F2' text-anchor='middle'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0C0E; --bg-2: #121417; --panel: #16181C;
+    --fg: #F2F1ED; --fg-soft: #B9BCB6; --muted: #74787E; --line: #26292E;
+    --seal: #E14328; --seal-deep: #CF3721;
+    --teal: #14B8A6;
+    --display: "Anton", Impact, sans-serif;
+    --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", Menlo, monospace;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 1.0625rem; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--seal); color: #fff; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
+  img, video { max-width: 100%; display: block; }
+  .wrap { max-width: 78rem; margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 40; mix-blend-mode: normal; background: linear-gradient(rgba(11,12,14,0.85), rgba(11,12,14,0)); backdrop-filter: blur(2px); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; gap: 1rem; }
+  .wordmark { font-family: var(--display); font-size: 1.25rem; letter-spacing: 0.04em; text-decoration: none; text-transform: uppercase; }
+  .wordmark span { color: var(--seal); }
+  nav.links { display: flex; gap: 1.6rem; }
+  nav.links a { text-decoration: none; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--fg-soft); text-transform: uppercase; }
+  nav.links a:hover { color: var(--seal); }
+  @media (max-width: 640px) { nav.links { gap: 1rem; } nav.links a:nth-child(2) { display: none; } }
+
+  /* HERO — media wall */
+  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+  .wall { position: absolute; inset: -4% -2%; display: flex; flex-direction: column; justify-content: center; gap: 1rem; opacity: 0.4; filter: saturate(0.9); }
+  .wall-row { display: flex; gap: 1rem; width: max-content; animation: drift 60s linear infinite; }
+  .wall-row.rev { animation-direction: reverse; animation-duration: 75s; }
+  @keyframes drift { to { transform: translateX(-50%); } }
+  .wall-row > * { width: clamp(180px, 22vw, 320px); aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; flex: none; }
+  .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,12,14,0.55) 0%, rgba(11,12,14,0.35) 45%, rgba(11,12,14,0.96) 88%); }
+  .hero-inner { position: relative; z-index: 1; width: 100%; padding-bottom: clamp(2.5rem, 7vh, 5rem); padding-top: 7rem; }
+  .kicker { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.22em; color: var(--seal); text-transform: uppercase; margin-bottom: 1rem; opacity: 0; animation: fadeup 0.6s ease 0.2s forwards; }
+  h1 { font-family: var(--display); font-size: clamp(3.2rem, 11vw, 9rem); line-height: 0.94; text-transform: uppercase; letter-spacing: 0.005em; }
+  h1 .row { display: block; overflow: hidden; }
+  h1 .row > span { display: inline-block; transform: translateY(108%); animation: rise 0.8s cubic-bezier(0.2, 0.6, 0.2, 1) forwards; }
+  h1 .row:nth-child(2) > span { animation-delay: 0.1s; }
+  h1 .row .ai { color: var(--seal); }
+  @keyframes rise { to { transform: translateY(0); } }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .hero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-top: 1.8rem; opacity: 0; animation: fadeup 0.7s ease 0.6s forwards; }
+  .hero-foot p { max-width: 52ch; color: var(--fg-soft); }
+  .hero-foot .cue { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; color: var(--muted); white-space: nowrap; animation: bob 2.2s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { h1 .row > span { transform: none; } .kicker, .hero-foot { opacity: 1 !important; } .wall-row { animation: none; } }
+
+  /* stats — per-character slide, no counting */
+  .stats { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-2); }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat { padding: clamp(1.6rem, 3vw, 2.6rem) clamp(1rem, 2vw, 2rem); border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  @media (max-width: 900px) { .stat:nth-child(2) { border-right: 0; } .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+  .stat .num { font-family: var(--display); font-size: clamp(2.6rem, 5.5vw, 4.6rem); line-height: 1; letter-spacing: 0.01em; }
+  .stat .num .ch { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  .stat .num .ch > span { display: inline-block; transform: translateY(110%); transition: transform 0.7s cubic-bezier(0.2, 0.65, 0.2, 1); }
+  .stat.in .num .ch > span { transform: translateY(0); }
+  .stat .num .accent { color: var(--seal); }
+  .stat .lbl { margin-top: 0.7rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); max-width: 22ch; }
+  @media (prefers-reduced-motion: reduce) { .stat .num .ch > span { transform: none; } }
+
+  /* SCENES — full-viewport products */
+  .scene { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; }
+  .scene .bg { position: absolute; inset: 0; }
+  .scene .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,12,14,0.92) 0%, rgba(11,12,14,0.72) 45%, rgba(11,12,14,0.3) 100%); }
+  @media (max-width: 860px) { .scene .bg::after { background: rgba(11,12,14,0.78); } }
+  .scene .bg video, .scene .bg img { width: 100%; height: 100%; object-fit: cover; }
+  .scene-inner { position: relative; z-index: 1; width: 100%; padding: 6rem 0; }
+  .scene .no { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; color: var(--seal); text-transform: uppercase; margin-bottom: 1rem; }
+  .scene h2 { font-family: var(--display); font-size: clamp(2.6rem, 7vw, 5.5rem); text-transform: uppercase; line-height: 0.98; max-width: 12ch; }
+  .scene p.desc { max-width: 46ch; color: var(--fg-soft); margin-top: 1.3rem; font-size: 1.1rem; }
+  .scene .visit { display: inline-block; margin-top: 1.8rem; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; border: 1.5px solid var(--fg); border-radius: 999px; padding: 0.65rem 1.3rem; transition: 0.2s ease; text-transform: uppercase; }
+  .scene .visit:hover { background: var(--seal); border-color: var(--seal); color: #fff; }
+  .scene .brandline { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .scene .brandline img { height: 2.2rem; width: auto; }
+  .scene .brandline img.rounded { border-radius: 8px; }
+  .vox-caption-b { margin-top: 1.6rem; max-width: 30rem; background: rgba(20,24,22,0.8); border: 1px solid #2A2F2D; border-radius: 8px; padding: 0.85rem 1rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.55; color: #C9D2CE; position: relative; overflow: hidden; min-height: 4.9em; backdrop-filter: blur(4px); }
+  .vox-caption-b span { position: absolute; inset: 0.85rem 1rem; opacity: 0; animation: cap 12s infinite; }
+  .vox-caption-b span:nth-child(2) { animation-delay: 4s; }
+  .vox-caption-b span:nth-child(3) { animation-delay: 8s; }
+  @keyframes cap { 0% { opacity: 0; } 4% { opacity: 1; } 30% { opacity: 1; } 34% { opacity: 0; } 100% { opacity: 0; } }
+  .vox-caption-b b { color: var(--teal); font-weight: 500; }
+  @media (prefers-reduced-motion: reduce) { .vox-caption-b span { position: static; opacity: 1; } .vox-caption-b span:nth-child(n+2) { display: none; } }
+
+  /* amnis scene composer mock (compact) */
+  .amnis-mock { margin-top: 1.6rem; max-width: 30rem; background: rgba(255,255,255,0.96); border-radius: 10px; padding: 1rem 1.1rem; color: #1A1D21; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+  .amnis-mock .from { font-size: 0.78rem; color: #5A5F66; margin-bottom: 0.5rem; }
+  .amnis-mock .from b { color: #1A1D21; }
+  .amnis-mock .compose { border: 1.5px solid #D9D6D2; border-radius: 8px; padding: 0.6rem 0.7rem; font-family: var(--mono); font-size: 0.76rem; min-height: 4.2em; line-height: 1.55; }
+  .amnis-mock .caret { display: inline-block; width: 2px; height: 0.95em; background: var(--seal-deep); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .amnis-mock .pillrow { display: flex; justify-content: center; margin-top: 0.7rem; }
+  .pill { background: #fff; border: 1px solid #E4E1DC; border-radius: 999px; box-shadow: 0 10px 24px rgba(0,0,0,0.18); display: flex; align-items: center; gap: 0.7rem; padding: 0.45rem 0.85rem; }
+  .pill img { width: 22px; height: 22px; }
+  .pill .auto { font-weight: 700; font-size: 0.78rem; color: #1A1D21; }
+  .pillwave { display: flex; gap: 3px; align-items: center; height: 18px; }
+  .pillwave i { width: 3px; border-radius: 2px; background: #1A1D21; animation: wv 1.05s ease-in-out infinite; }
+  .pillwave i:nth-child(1) { height: 6px; } .pillwave i:nth-child(2) { height: 13px; animation-delay: 0.1s; } .pillwave i:nth-child(3) { height: 16px; animation-delay: 0.2s; } .pillwave i:nth-child(4) { height: 9px; animation-delay: 0.3s; } .pillwave i:nth-child(5) { height: 14px; animation-delay: 0.4s; } .pillwave i:nth-child(6) { height: 7px; animation-delay: 0.5s; }
+  @keyframes wv { 0%,100% { transform: scaleY(0.55); } 50% { transform: scaleY(1.25); } }
+
+  .scene.vox .bg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .scene.vox .bg video { height: 100%; }
+
+  /* VENTURES — horizontal reel */
+  .reel-head { padding-top: clamp(4rem, 9vh, 6rem); display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
+  .reel-head h2 { font-family: var(--display); font-size: clamp(2rem, 5vw, 3.6rem); text-transform: uppercase; }
+  .reel-head .hint { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
+  .reel { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 var(--pad) 1.6rem; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  .reel::-webkit-scrollbar { height: 6px; }
+  .reel::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+  .rcard { flex: 0 0 clamp(280px, 38vw, 460px); scroll-snap-align: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, border-color 0.3s ease; }
+  .rcard:hover { transform: translateY(-6px); border-color: #3A3E44; }
+  .rcard .media { aspect-ratio: 16/10; overflow: hidden; background: #000; }
+  .rcard .media img, .rcard .media video { width: 100%; height: 100%; object-fit: cover; }
+  .rcard .media .logo-fill { width: 100%; height: 100%; display: grid; place-items: center; background: #0F1110; }
+  .rcard .media .logo-fill img { width: 50%; height: auto; filter: invert(1) hue-rotate(180deg); }
+  .rcard .body { padding: 1.2rem 1.3rem 1.4rem; }
+  .rcard .yrs { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; color: var(--muted); }
+  .rcard h3 { font-family: var(--display); font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.02em; margin-top: 0.3rem; }
+  .rcard p { color: var(--fg-soft); font-size: 0.92rem; margin-top: 0.4rem; }
+  .rcard .badge { display: inline-block; margin-top: 0.8rem; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em; color: var(--seal); border: 1px solid var(--seal); border-radius: 999px; padding: 0.2rem 0.6rem; }
+
+  /* record + advisory + about */
+  section.pad { padding-top: clamp(4rem, 9vh, 6rem); }
+  .sec-title { font-family: var(--display); font-size: clamp(1.8rem, 4.5vw, 3rem); text-transform: uppercase; margin-bottom: 1.8rem; }
+  .record { border-top: 1px solid var(--fg); }
+  .row { display: grid; grid-template-columns: 7.5rem 13rem 1fr; gap: 1.5rem; padding: 1.05rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .row .yrs { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+  .row .who { font-weight: 700; }
+  .row .who small { display: block; font-weight: 500; color: var(--muted); font-size: 0.78rem; }
+  .row .what { color: var(--fg-soft); font-size: 0.96rem; }
+  .row.now .yrs::after { content: "NOW"; font-size: 0.6rem; color: var(--seal); border: 1px solid var(--seal); border-radius: 3px; padding: 0.05rem 0.3rem; margin-left: 0.5rem; letter-spacing: 0.1em; }
+  @media (max-width: 760px) { .row { grid-template-columns: 1fr; gap: 0.15rem; } }
+  .advisory-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; }
+  @media (max-width: 760px) { .advisory-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+  .advisory-grid p { max-width: 62ch; color: var(--fg-soft); }
+  .advisory-grid p + p { margin-top: 1rem; }
+  .advisory-grid strong { color: var(--fg); }
+  ul.scope { list-style: none; border-top: 1px solid var(--fg); }
+  ul.scope li { padding: 0.85rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.96rem; }
+  ul.scope li::before { content: "→"; color: var(--seal); font-family: var(--mono); font-size: 0.85rem; }
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-grid p { color: var(--fg-soft); max-width: 62ch; }
+  .about-grid p + p { margin-top: 1rem; }
+  .portrait { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); position: relative; }
+  .portrait img { width: 100%; filter: contrast(1.02); }
+  .portrait figcaption { position: absolute; left: 0.9rem; bottom: 0.9rem; background: rgba(11,12,14,0.8); color: var(--fg); font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em; padding: 0.35rem 0.6rem; border-radius: 4px; }
+
+  /* contact */
+  .contact { margin-top: clamp(4rem, 9vh, 6rem); border-top: 1px solid var(--line); background: var(--bg-2); }
+  .contact-inner { padding: clamp(3rem, 8vh, 5rem) 0; }
+  .contact h2 { font-family: var(--display); font-size: clamp(2.6rem, 8vw, 6rem); text-transform: uppercase; line-height: 0.96; }
+  .contact h2 a { text-decoration: none; }
+  .contact h2 a:hover { color: var(--seal); }
+  .contact p { color: var(--fg-soft); margin-top: 1rem; max-width: 52ch; }
+  .foot { border-top: 1px solid var(--line); }
+  .foot-inner { padding: 1.4rem 0 1.6rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--muted); }
+  .foot a { color: var(--fg-soft); text-decoration: none; }
+  .foot a:hover { color: var(--fg); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="wordmark" href="#top">Yunique<span>S</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#amnis">Products</a>
+      <a href="#reel">Ventures</a>
+      <a href="#advisory">Advisory</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wall" aria-hidden="true">
+      <div class="wall-row">
+        <img src="assets/craftease-kit.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video>
+        <img src="assets/risematcha-uji.jpg" alt="">
+        <img src="assets/risematcha-product.jpg" alt="">
+        <img src="assets/craftease-kit.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video>
+        <img src="assets/risematcha-uji.jpg" alt="">
+        <img src="assets/risematcha-product.jpg" alt="">
+      </div>
+      <div class="wall-row rev">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video>
+        <img src="assets/risematcha.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
+        <img src="assets/david.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video>
+        <img src="assets/risematcha.jpg" alt="">
+        <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
+        <img src="assets/david.jpg" alt="">
+      </div>
+    </div>
+    <div class="hero-shade"></div>
+    <div class="wrap hero-inner">
+      <p class="kicker">YuniqueS Ltd · AI product company</p>
+      <h1>
+        <span class="row"><span>Built on commerce.</span></span>
+        <span class="row"><span>Building with <em class="ai" style="font-style:normal;">AI</em>.</span></span>
+      </h1>
+      <div class="hero-foot">
+        <p>
+          YuniqueS builds AI-native software products — grown out of nine years running
+          consumer e-commerce at scale: a 20+ person organisation, $2.5M+ annual revenue,
+          $2M of paid media. Now shipping Amnis and Voxtiva.
+        </p>
+        <span class="cue">SCROLL ↓</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" aria-label="Track record in numbers">
+    <div class="wrap stats-grid">
+      <div class="stat"><div class="num" data-split><span class="accent">$</span>2.5M+</div><div class="lbl">peak annual revenue, own e-commerce</div></div>
+      <div class="stat"><div class="num" data-split><span class="accent">$</span>2M</div><div class="lbl">paid media managed</div></div>
+      <div class="stat"><div class="num" data-split>20+</div><div class="lbl">people led</div></div>
+      <div class="stat"><div class="num" data-split>9YRS</div><div class="lbl">operating consumer brands</div></div>
+    </div>
+  </div>
+
+  <section class="scene" id="amnis">
+    <div class="bg" aria-hidden="true">
+      <img src="assets/craftease-kit.jpg" alt="" style="opacity: 0; position: absolute;">
+      <div style="position: absolute; inset: 0; background: radial-gradient(120% 90% at 80% 20%, #17383B 0%, #0B0C0E 70%);"></div>
+    </div>
+    <div class="wrap scene-inner">
+      <p class="no">01 · AI dictation — on-device privacy</p>
+      <div class="brandline"><img src="assets/amnis-icon-white.png" alt=""><h2 style="font-size: clamp(2.6rem, 7vw, 5.5rem);">Amnis</h2></div>
+      <p class="desc">
+        Making speech a better way to write. Press a key, speak, and AI turns your words
+        into polished text — directly in whatever app is open. Speech is processed on
+        your device, not someone else's server.
+      </p>
+      <div class="amnis-mock" aria-hidden="true">
+        <p class="from"><b>Daniel Kim</b> · 10:42 — Any update on the review?</p>
+        <div class="compose"><span class="typed-m"></span><span class="caret"></span></div>
+        <div class="pillrow">
+          <div class="pill"><img src="assets/amnis-icon-black.png" alt=""><span class="pillwave"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="auto">✦ Auto</span></div>
+        </div>
+      </div>
+      <a class="visit" href="https://amnis.one" target="_blank" rel="noopener">amnis.one ↗</a>
+    </div>
+  </section>
+
+  <section class="scene vox" id="voxtiva">
+    <div class="bg" aria-hidden="true">
+      <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video>
+      <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
+      <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-third-poster.jpg" src="assets/voxtiva-tile-third.mp4"></video>
+    </div>
+    <div class="wrap scene-inner">
+      <p class="no" style="color: var(--teal);">02 · AI translation — real-time</p>
+      <div class="brandline"><img class="rounded" src="assets/voxtiva-symbol.svg" alt=""><h2 style="font-size: clamp(2.6rem, 7vw, 5.5rem);">Voxtiva</h2></div>
+      <p class="desc">
+        Real-time AI translation for multilingual meetings. Everyone speaks their own
+        language; everyone reads yours — inside Google Meet, Microsoft Teams and Zoom.
+      </p>
+      <div class="vox-caption-b" aria-hidden="true">
+        <span>「金曜までにお送りします」 → <b>"We'll send it by Friday."</b></span>
+        <span>"¿Podemos ver los números?" → <b>"Can we look at the numbers?"</b></span>
+        <span>「予算は問題ありません」 → <b>"The budget is not a problem."</b></span>
+      </div>
+      <a class="visit" href="https://voxtiva.com" target="_blank" rel="noopener">voxtiva.com ↗</a>
+    </div>
+  </section>
+
+  <section id="reel">
+    <div class="wrap reel-head">
+      <h2>Built &amp; run before</h2>
+      <span class="hint">2016 — 2025 · Drag / scroll →</span>
+    </div>
+    <div class="reel">
+      <article class="rcard">
+        <div class="media"><img src="assets/craftease-kit.jpg" alt="Craft-Ease paint-by-numbers kit" loading="lazy"></div>
+        <div class="body">
+          <span class="yrs">2016 — 2025 · HONG KONG</span>
+          <h3>Craft-Ease</h3>
+          <p>Paint-by-numbers and diamond-painting kits, sold worldwide. Built from zero into a 20+ person company.</p>
+          <span class="badge">$2.5M+ ANNUAL REVENUE</span>
+        </div>
+      </article>
+      <article class="rcard">
+        <div class="media"><video muted loop playsinline autoplay preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video></div>
+        <div class="body">
+          <span class="yrs">2018 — 2020 · TOKYO</span>
+          <h3>RISE MATCHA</h3>
+          <p>Organic ceremonial-grade matcha from Uji — brand, packaging and e-commerce end-to-end.</p>
+          <span class="badge">D2C BRAND</span>
+        </div>
+      </article>
+      <article class="rcard">
+        <div class="media"><img src="assets/risematcha-uji.jpg" alt="Sourcing visit in the Uji tea fields" loading="lazy"></div>
+        <div class="body">
+          <span class="yrs">UJI, KYOTO</span>
+          <h3>At the source</h3>
+          <p>Sourcing directly with growers in Uji — the supply-chain work behind the brand.</p>
+          <span class="badge">SUPPLY CHAIN</span>
+        </div>
+      </article>
+      <article class="rcard">
+        <div class="media"><div class="logo-fill"><img src="assets/social-root-logo.png" alt="Social Root logo"></div></div>
+        <div class="body">
+          <span class="yrs">2021 — 2025 · TOKYO</span>
+          <h3>Social Root</h3>
+          <p>Digital marketing agency for e-commerce brands — strategy, creative, ~$2M in paid spend on Meta, Google, TikTok.</p>
+          <span class="badge">GROWTH AGENCY</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="record">
+    <h2 class="sec-title">Track record</h2>
+    <div class="record">
+      <div class="row now reveal"><span class="yrs">2026 —</span><span class="who">Voxtiva <small>Founder</small></span><span class="what">Real-time AI meeting translation. In build.</span></div>
+      <div class="row now reveal"><span class="yrs">2025 —</span><span class="who">Amnis <small>Founder</small></span><span class="what">Private, on-device AI dictation. In build.</span></div>
+      <div class="row reveal"><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder</small></span><span class="what">Science-based consumer brand; product, manufacturing, e-commerce, operations.</span></div>
+      <div class="row reveal"><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency; ~$2M paid spend across Meta, Google, TikTok.</span></div>
+      <div class="row reveal"><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
+      <div class="row reveal"><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce to $2.5M+ annual revenue with a 20+ person team.</span></div>
+      <div class="row reveal"><span class="yrs">2008 — 16</span><span class="who">FIS, Hong Kong <small>Sales &amp; pre-sales</small></span><span class="what">Electronic trading and risk systems for banks and brokers across APAC.</span></div>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="advisory">
+    <h2 class="sec-title">E-commerce advisory</h2>
+    <div class="advisory-grid">
+      <div>
+        <p>
+          <strong>YuniqueS advises a select number of companies</strong> starting or
+          scaling e-commerce. The advice comes from operating, not theory: nine years
+          running our own stores, an agency's worth of paid-media spend, and the
+          unglamorous parts — logistics, support, cash flow.
+        </p>
+        <p>
+          Recent work includes helping an established consumer brand stand up its
+          e-commerce operation from scratch. Engagements are scoped, hands-on and honest
+          about what will and won't move the needle.
+        </p>
+      </div>
+      <ul class="scope">
+        <li>Launch: platform, catalogue, payments, fulfilment</li>
+        <li>Paid acquisition on Meta, Google and TikTok</li>
+        <li>Conversion, retention and unit economics</li>
+        <li>AI-enabled workflows for lean teams</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="about">
+    <h2 class="sec-title">About the founder</h2>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm Van David Thai, founder of YuniqueS — a Solvay-trained economist with
+          nearly twenty years on the commercial side of technology. Eight years selling
+          electronic trading systems to financial institutions in Hong Kong, then nine
+          years founding and scaling my own consumer businesses, leading teams of 20+
+          across product, marketing, operations and supply chain.
+        </p>
+        <p>
+          Since 2025 I build AI products full-time, working with AI daily — designing,
+          coding and shipping with it. YuniqueS Ltd is the company behind that work:
+          the products above, and advisory engagements where our operating experience is
+          useful. Based in Tokyo; incorporated in Hong Kong.
+        </p>
+      </div>
+      <figure class="portrait reveal">
+        <img src="assets/david.jpg" alt="Van David Thai, founder of YuniqueS" loading="lazy">
+        <figcaption>VAN DAVID THAI · FOUNDER</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<div class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <h2><a href="https://www.linkedin.com/in/van-david-t-0627513" rel="me">Talk to YuniqueS ↗</a></h2>
+    <p>Advisory, partnerships, product or investor conversations — reach us on LinkedIn.</p>
+  </div>
+  <div class="foot">
+    <div class="wrap foot-inner">
+      <span>© 2026 YUNIQUES LTD. ALL RIGHTS RESERVED.</span>
+      <span>TOKYO · HONG KONG</span>
+      <a href="https://www.linkedin.com/in/van-david-t-0627513">LINKEDIN ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* split stat characters for staggered rise */
+  document.querySelectorAll("[data-split]").forEach((num) => {
+    const frag = document.createDocumentFragment();
+    Array.from(num.childNodes).forEach((node) => {
+      if (node.nodeType === 3) {
+        node.textContent.split("").forEach((c, i) => {
+          const ch = document.createElement("span"); ch.className = "ch";
+          const inner = document.createElement("span"); inner.textContent = c;
+          ch.appendChild(inner); frag.appendChild(ch);
+        });
+      } else {
+        const ch = document.createElement("span"); ch.className = "ch";
+        const inner = document.createElement("span"); inner.appendChild(node.cloneNode(true));
+        ch.appendChild(inner); frag.appendChild(ch);
+      }
+    });
+    num.textContent = ""; num.appendChild(frag);
+    Array.from(num.querySelectorAll(".ch > span")).forEach((s, i) => { s.style.transitionDelay = (i * 55) + "ms"; });
+  });
+
+  const els = document.querySelectorAll(".reveal, .stat");
+  if ("IntersectionObserver" in window && !reduced) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { threshold: 0.2 });
+    els.forEach((el) => io.observe(el));
+    setTimeout(() => els.forEach((el) => el.classList.add("in")), 3500);
+  } else {
+    els.forEach((el) => el.classList.add("in"));
+  }
+
+  /* typed composer */
+  const targets = document.querySelectorAll(".typed-m");
+  if (targets.length) {
+    const text = "I moved the review to Thursday — full notes are in the doc.";
+    if (reduced) targets.forEach((t) => (t.textContent = text));
+    else {
+      let i = 0, dir = 1;
+      const step = () => {
+        targets.forEach((t) => (t.textContent = text.slice(0, i)));
+        let delay = dir > 0 ? 45 : 14;
+        if (dir > 0 && i === text.length) { dir = -1; delay = 2600; }
+        else if (dir < 0 && i === 0) { dir = 1; delay = 700; }
+        else i += dir;
+        setTimeout(step, delay);
+      };
+      step();
+    }
+  }
+
+  /* pause offscreen videos */
+  if ("IntersectionObserver" in window) {
+    const vio = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const v = e.target;
+        if (e.isIntersecting) v.play?.().catch(() => {});
+        else v.pause?.();
+      }
+    }, { threshold: 0.1 });
+    document.querySelectorAll("video").forEach((v) => vio.observe(v));
+  }
+})();
+</script>
+
+</body>
+</html>

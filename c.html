@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YuniqueS — AI products, built by an operator</title>
+<meta name="description" content="YuniqueS Ltd builds AI-native products — Amnis and Voxtiva — on nine years of consumer e-commerce operations. Selective e-commerce advisory.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231A1D21'/><text x='50' y='68' font-size='52' font-family='Georgia,serif' font-weight='900' fill='%23F5F2EA' text-anchor='middle'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Newsreader:ital,opsz,wght@1,6..72,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3EE; --card: #FFFFFF;
+    --ink: #191B1E; --soft: #4C4F54; --muted: #8A8D86; --line: #E1DED6;
+    --green: #2F6B45; --green-deep: #24523500; --accent: #2F6B45;
+    --pop: #E2542C;
+    --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    --serif: "Newsreader", Georgia, serif;
+    --mono: "IBM Plex Mono", Menlo, monospace;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+    --r: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  body { background: var(--bg); color: var(--ink); font-family: var(--display); font-size: 1.05rem; line-height: 1.6; font-weight: 380; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--green); color: #fff; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 3px; }
+  img, video { max-width: 100%; display: block; }
+  .wrap { max-width: 76rem; margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+  header { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 0; gap: 1rem; }
+  .wordmark { font-weight: 750; font-size: 1.2rem; letter-spacing: -0.01em; text-decoration: none; }
+  .wordmark i { font-style: normal; color: var(--green); }
+  nav.links { display: flex; gap: 1.5rem; }
+  nav.links a { text-decoration: none; font-size: 0.9rem; font-weight: 550; color: var(--soft); }
+  nav.links a:hover { color: var(--green); }
+  @media (max-width: 640px) { nav.links { gap: 1rem; } nav.links a:nth-child(2) { display: none; } }
+
+  /* hero */
+  .hero { padding: clamp(3.5rem, 9vh, 6.5rem) 0 clamp(2rem, 5vh, 3.5rem); }
+  .eyebrow { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.3rem; }
+  h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); font-weight: 720; line-height: 1.0; letter-spacing: -0.03em; max-width: 22ch; }
+  h1 .serif { font-family: var(--serif); font-style: italic; font-weight: 420; letter-spacing: -0.01em; color: var(--green); }
+  h1 .word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  h1 .word > span { display: inline-block; transform: translateY(110%); animation: rise 0.75s cubic-bezier(0.2, 0.65, 0.2, 1) forwards; }
+  @keyframes rise { to { transform: translateY(0); } }
+  .lede { margin-top: 1.6rem; max-width: 62ch; color: var(--soft); font-size: 1.14rem; opacity: 0; animation: fadeup 0.7s ease 0.55s forwards; }
+  .hero-ctas { margin-top: 2rem; display: flex; gap: 0.9rem; flex-wrap: wrap; opacity: 0; animation: fadeup 0.7s ease 0.7s forwards; }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { h1 .word > span { transform: none; } .lede, .hero-ctas { opacity: 1 !important; } }
+  .btn { display: inline-block; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.75rem 1.4rem; border-radius: 999px; border: 1.5px solid var(--ink); transition: 0.18s ease; }
+  .btn.primary { background: var(--ink); color: var(--bg); }
+  .btn.primary:hover { background: var(--green); border-color: var(--green); color: #fff; }
+  .btn.ghost:hover { border-color: var(--green); color: var(--green); }
+
+  /* hero collage band with parallax */
+  .collage { margin-top: clamp(2.5rem, 6vh, 4rem); display: grid; grid-template-columns: 1.3fr 1fr 1.1fr; gap: 1rem; align-items: stretch; }
+  @media (max-width: 860px) { .collage { grid-template-columns: 1fr 1fr; } .collage .c3 { display: none; } }
+  .collage .tile { border-radius: var(--r); overflow: hidden; position: relative; min-height: clamp(200px, 32vw, 340px); }
+  .collage .tile img, .collage .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .collage .tile .tag { position: absolute; left: 0.9rem; bottom: 0.9rem; z-index: 1; background: rgba(255,255,255,0.92); color: var(--ink); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; padding: 0.35rem 0.65rem; border-radius: 999px; }
+
+  /* marquee divider */
+  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 0.9rem 0; margin-top: clamp(3rem, 7vh, 5rem); background: var(--card); }
+  .marquee-track { display: inline-block; animation: slide 34s linear infinite; }
+  .marquee span { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--soft); }
+  .marquee b { color: var(--green); font-weight: 500; padding: 0 1.1rem; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+  /* stats — soft focus-in */
+  .stats { padding-top: clamp(3rem, 7vh, 5rem); }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 1.6rem 1.5rem 1.5rem; }
+  .stat .num { font-weight: 750; letter-spacing: -0.03em; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; opacity: 0; transform: scale(1.12); filter: blur(6px); transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease; }
+  .stat.in .num { opacity: 1; transform: none; filter: none; }
+  .stat .num i { font-style: normal; color: var(--green); }
+  .stat .lbl { margin-top: 0.55rem; font-size: 0.88rem; color: var(--muted); font-weight: 480; }
+  @media (prefers-reduced-motion: reduce) { .stat .num { opacity: 1; transform: none; filter: none; } }
+
+  /* sections */
+  section { padding-top: clamp(4rem, 9vh, 6.5rem); scroll-margin-top: 3.5rem; }
+  .kick { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+  h2.big { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 720; letter-spacing: -0.03em; line-height: 1.02; }
+  h2.big .serif { font-family: var(--serif); font-style: italic; font-weight: 420; color: var(--green); }
+
+  /* product features — big rounded slabs */
+  .slab { margin-top: 2rem; border-radius: calc(var(--r) + 8px); overflow: hidden; display: grid; grid-template-columns: 1fr 1.1fr; min-height: 30rem; }
+  @media (max-width: 860px) { .slab { grid-template-columns: 1fr; min-height: 0; } }
+  .slab + .slab { margin-top: 1.5rem; }
+  .slab .txt { padding: clamp(1.8rem, 4vw, 3.2rem); display: flex; flex-direction: column; gap: 1rem; }
+  .slab .brand { display: flex; align-items: center; gap: 0.8rem; }
+  .slab .brand img { height: 2.2rem; width: auto; }
+  .slab .brand .nm { font-weight: 750; font-size: 2rem; letter-spacing: -0.02em; }
+  .slab .tagline { font-family: var(--serif); font-style: italic; font-size: 1.35rem; }
+  .slab p.d { max-width: 46ch; }
+  .slab .visit { margin-top: auto; align-self: flex-start; text-decoration: none; font-weight: 600; font-size: 0.95rem; border-bottom: 2px solid currentColor; padding-bottom: 2px; }
+  .slab .media { position: relative; min-height: 20rem; }
+  .slab .media > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+  /* amnis slab */
+  .slab.amnis { background: #10222B; color: #EAF2F1; }
+  .slab.amnis .tagline { color: #9FD8CD; }
+  .slab.amnis p.d { color: #B7C7C6; }
+  .slab.amnis .visit:hover { color: #9FD8CD; }
+  .amnis-stage { background: radial-gradient(120% 100% at 75% 15%, #1B3A46 0%, #10222B 75%); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+  .amnis-card { position: relative; background: #fff; color: #191B1E; border-radius: 14px; width: min(100%, 24rem); padding: 1.1rem 1.2rem 3.4rem; box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+  .amnis-card .from { font-size: 0.8rem; color: #5A5F66; margin-bottom: 0.55rem; }
+  .amnis-card .from b { color: #191B1E; }
+  .amnis-card .compose { border: 1.5px solid #E0DDD8; border-radius: 10px; padding: 0.65rem 0.75rem; font-family: var(--mono); font-size: 0.78rem; min-height: 4.4em; line-height: 1.55; }
+  .amnis-card .caret { display: inline-block; width: 2px; height: 0.95em; background: var(--pop); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .amnis-card .pill { position: absolute; left: 50%; transform: translateX(-50%); bottom: -1.2rem; background: #fff; border-radius: 999px; box-shadow: 0 14px 30px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 0.65rem; padding: 0.5rem 0.9rem; border: 1px solid #ECE9E4; }
+  .amnis-card .pill img { width: 22px; height: 22px; }
+  .amnis-card .pill .auto { font-weight: 700; font-size: 0.78rem; }
+  .pillwave { display: flex; gap: 3px; align-items: center; height: 18px; }
+  .pillwave i { width: 3px; border-radius: 2px; background: #191B1E; animation: wv 1.05s ease-in-out infinite; }
+  .pillwave i:nth-child(1) { height: 6px; } .pillwave i:nth-child(2) { height: 13px; animation-delay: 0.1s; } .pillwave i:nth-child(3) { height: 16px; animation-delay: 0.2s; } .pillwave i:nth-child(4) { height: 9px; animation-delay: 0.3s; } .pillwave i:nth-child(5) { height: 14px; animation-delay: 0.4s; } .pillwave i:nth-child(6) { height: 7px; animation-delay: 0.5s; }
+  @keyframes wv { 0%,100% { transform: scaleY(0.55); } 50% { transform: scaleY(1.25); } }
+  /* vox slab */
+  .slab.vox { background: #0F1512; color: #EAF2EE; }
+  .slab.vox .tagline { color: #7FD6C3; }
+  .slab.vox p.d { color: #AEC2BA; }
+  .slab.vox .visit:hover { color: #7FD6C3; }
+  .vox-stage { background: #0B100E; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.8rem; justify-content: center; }
+  .vox-stage .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+  .vox-stage video { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
+  .vox-cap { background: #141B17; border: 1px solid #22302A; border-radius: 10px; padding: 0.8rem 1rem; font-family: var(--mono); font-size: 0.76rem; line-height: 1.55; color: #C6D6CE; position: relative; overflow: hidden; min-height: 4.9em; }
+  .vox-cap span { position: absolute; inset: 0.8rem 1rem; opacity: 0; animation: cap 12s infinite; }
+  .vox-cap span:nth-child(2) { animation-delay: 4s; }
+  .vox-cap span:nth-child(3) { animation-delay: 8s; }
+  @keyframes cap { 0% { opacity: 0; } 4% { opacity: 1; } 30% { opacity: 1; } 34% { opacity: 0; } 100% { opacity: 0; } }
+  .vox-cap b { color: #4ED0B5; font-weight: 500; }
+  @media (prefers-reduced-motion: reduce) { .vox-cap span { position: static; opacity: 1; } .vox-cap span:nth-child(n+2) { display: none; } }
+
+  /* ventures — full-bleed parallax bands */
+  .band { position: relative; margin-top: 2rem; border-radius: calc(var(--r) + 8px); overflow: hidden; min-height: clamp(20rem, 60vh, 32rem); display: flex; align-items: flex-end; }
+  .band + .band { margin-top: 1.5rem; }
+  .band .bg { position: absolute; inset: -12% 0; }
+  .band .bg img, .band .bg video { width: 100%; height: 100%; object-fit: cover; }
+  .band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,12,10,0) 30%, rgba(10,12,10,0.72) 100%); }
+  .band .info { position: relative; z-index: 1; color: #fff; padding: clamp(1.4rem, 3.5vw, 2.4rem); display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; width: 100%; flex-wrap: wrap; }
+  .band .info h3 { font-weight: 750; font-size: clamp(1.6rem, 3.6vw, 2.6rem); letter-spacing: -0.02em; }
+  .band .info .sub { color: #D8DAD3; max-width: 46ch; margin-top: 0.3rem; }
+  .band .info .meta { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; color: #CFD2C9; text-transform: uppercase; }
+  .band .chipline { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
+  .band .chip { background: rgba(255,255,255,0.14); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; padding: 0.25rem 0.6rem; border-radius: 999px; }
+  .band.srband .bg { background: #191B1E; display: grid; place-items: center; inset: 0; }
+  .band.srband .bg img { width: min(40%, 220px); height: auto; filter: invert(1) hue-rotate(180deg); }
+
+  /* record & advisory & about */
+  .record { margin-top: 2rem; background: var(--card); border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); overflow: hidden; }
+  .row { display: grid; grid-template-columns: 7.5rem 13rem 1fr; gap: 1.5rem; padding: 1.05rem clamp(1.2rem, 3vw, 2rem); border-bottom: 1px solid var(--line); align-items: baseline; }
+  .row:last-child { border-bottom: 0; }
+  .row .yrs { font-family: var(--mono); font-size: 0.76rem; color: var(--muted); }
+  .row .who { font-weight: 650; }
+  .row .who small { display: block; font-weight: 450; color: var(--muted); font-size: 0.8rem; }
+  .row .what { color: var(--soft); font-size: 0.97rem; }
+  .row.now .yrs::after { content: "NOW"; font-size: 0.6rem; color: var(--green); border: 1px solid var(--green); border-radius: 999px; padding: 0.05rem 0.4rem; margin-left: 0.5rem; letter-spacing: 0.1em; }
+  @media (max-width: 760px) { .row { grid-template-columns: 1fr; gap: 0.15rem; } }
+  .advisory-grid { margin-top: 2rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; }
+  @media (max-width: 760px) { .advisory-grid { grid-template-columns: 1fr; } }
+  .advisory-card { background: var(--card); border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); padding: clamp(1.5rem, 3.5vw, 2.4rem); }
+  .advisory-card p { color: var(--soft); max-width: 60ch; }
+  .advisory-card p + p { margin-top: 1rem; }
+  .advisory-card strong { color: var(--ink); }
+  .advisory-card.greenc { background: #10281B; border-color: #10281B; color: #E7F1E9; }
+  .advisory-card.greenc h3 { font-weight: 700; margin-bottom: 0.8rem; }
+  ul.scope { list-style: none; }
+  ul.scope li { padding: 0.8rem 0; border-bottom: 1px solid #24523E; display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.96rem; color: #CDE3D2; }
+  ul.scope li:last-child { border-bottom: 0; }
+  ul.scope li::before { content: "→"; color: #7FD6A9; font-family: var(--mono); font-size: 0.85rem; }
+  .about-grid { margin-top: 2rem; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-grid p { color: var(--soft); max-width: 62ch; }
+  .about-grid p + p { margin-top: 1rem; }
+  .about-grid .sig { margin-top: 1.6rem; font-family: var(--serif); font-style: italic; font-size: 1.35rem; color: var(--ink); }
+  .portrait { border-radius: calc(var(--r) + 4px); overflow: hidden; position: relative; }
+  .portrait img { width: 100%; }
+  .portrait figcaption { position: absolute; left: 0.9rem; bottom: 0.9rem; background: rgba(255,255,255,0.92); color: var(--ink); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; padding: 0.35rem 0.65rem; border-radius: 999px; }
+
+  /* contact */
+  .contact { margin-top: clamp(4rem, 9vh, 6.5rem); background: var(--ink); color: var(--bg); border-radius: calc(var(--r) + 10px) calc(var(--r) + 10px) 0 0; }
+  .contact-inner { padding: clamp(3rem, 8vh, 5rem) 0 clamp(2rem, 5vh, 3rem); }
+  .contact h2 { font-size: clamp(2.2rem, 6vw, 4.4rem); font-weight: 720; letter-spacing: -0.03em; line-height: 1; }
+  .contact h2 .serif { font-family: var(--serif); font-style: italic; font-weight: 420; color: #8FD6A9; }
+  .contact p { color: #B9BCB6; margin-top: 1rem; max-width: 52ch; }
+  .contact .btn { margin-top: 1.8rem; border-color: var(--bg); color: var(--bg); }
+  .contact .btn:hover { background: #8FD6A9; border-color: #8FD6A9; color: var(--ink); }
+  .foot-inner { border-top: 1px solid #33373B; margin-top: clamp(2rem, 5vh, 3rem); padding: 1.3rem 0 1.5rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; color: #8B8E88; }
+  .foot-inner a { color: #B9BCB6; text-decoration: none; }
+  .foot-inner a:hover { color: var(--bg); }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="wordmark" href="#top">Yunique<i>S</i></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#products">Products</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#advisory">Advisory</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <p class="eyebrow">YuniqueS Ltd · AI product company · Tokyo</p>
+    <h1>
+      <span class="word"><span>Built&nbsp;on&nbsp;</span></span><span class="word serif"><span style="animation-delay:0.1s">commerce.</span></span><br>
+      <span class="word"><span style="animation-delay:0.2s">Building&nbsp;with&nbsp;</span></span><span class="word serif"><span style="animation-delay:0.3s">AI.</span></span>
+    </h1>
+    <p class="lede">
+      YuniqueS builds AI-native software products. The company grew out of nine years
+      operating consumer e-commerce at scale — a 20+ person organisation, $2.5M+ in
+      annual revenue — and now puts that operating depth into a portfolio of AI
+      products, alongside selective e-commerce advisory.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn primary" href="#products">Our products</a>
+      <a class="btn ghost" href="#advisory">Work with us</a>
+    </div>
+
+    <div class="collage" aria-hidden="true">
+      <div class="tile" data-para="0.12"><img src="assets/craftease-kit.jpg" alt=""><span class="tag">CRAFT-EASE · E-COMMERCE</span></div>
+      <div class="tile" data-para="0.2"><video muted loop playsinline autoplay preload="metadata" poster="assets/risematcha-benefits-poster.jpg" src="assets/risematcha-benefits.mp4"></video><span class="tag">RISE MATCHA · D2C</span></div>
+      <div class="tile c3" data-para="0.16"><video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video><span class="tag">VOXTIVA · AI</span></div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Amnis <b>·</b> Voxtiva <b>·</b> Craft-Ease <b>·</b> RISE MATCHA <b>·</b> Social Root <b>·</b> e-commerce advisory <b>·</b> </span><span>Amnis <b>·</b> Voxtiva <b>·</b> Craft-Ease <b>·</b> RISE MATCHA <b>·</b> Social Root <b>·</b> e-commerce advisory <b>·</b> </span>
+    </div>
+  </div>
+
+  <div class="wrap stats" aria-label="Track record in numbers">
+    <div class="stats-grid">
+      <div class="stat"><div class="num"><i>$</i>2.5M+</div><div class="lbl">peak annual revenue, own e-commerce</div></div>
+      <div class="stat"><div class="num"><i>$</i>2M</div><div class="lbl">paid media managed across Meta, Google &amp; TikTok</div></div>
+      <div class="stat"><div class="num">20<i>+</i></div><div class="lbl">people led across product, ops &amp; marketing</div></div>
+      <div class="stat"><div class="num">9<i>&thinsp;yrs</i></div><div class="lbl">operating consumer brands end-to-end</div></div>
+    </div>
+  </div>
+
+  <section id="products" class="wrap">
+    <p class="kick">Now building</p>
+    <h2 class="big">Two AI products, <span class="serif">shipping now.</span></h2>
+
+    <article class="slab amnis reveal">
+      <div class="txt">
+        <div class="brand"><img src="assets/amnis-icon-white.png" alt=""><span class="nm">Amnis</span></div>
+        <p class="tagline">Making speech a better way to write.</p>
+        <p class="d">
+          Press a key, speak, and AI turns your words into polished text — directly in
+          whatever app is open. Built for privacy-sensitive professionals: speech is
+          processed on your device, not someone else's server.
+        </p>
+        <a class="visit" href="https://amnis.one" target="_blank" rel="noopener">amnis.one ↗</a>
+      </div>
+      <div class="media">
+        <div class="amnis-stage">
+          <div class="amnis-card" aria-hidden="true">
+            <p class="from"><b>Daniel Kim</b> · 10:42 — Any update on the review?</p>
+            <div class="compose"><span class="typed-m"></span><span class="caret"></span></div>
+            <div class="pill"><img src="assets/amnis-icon-black.png" alt=""><span class="pillwave"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="auto">✦ Auto</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slab vox reveal">
+      <div class="txt">
+        <div class="brand"><img src="assets/voxtiva-symbol.svg" alt="" style="border-radius: 8px;"><span class="nm">Voxtiva</span></div>
+        <p class="tagline">Every language in the room, in yours.</p>
+        <p class="d">
+          Real-time AI translation for multilingual meetings. Everyone speaks their own
+          language; everyone reads yours — inside Google Meet, Microsoft Teams and Zoom.
+        </p>
+        <a class="visit" href="https://voxtiva.com" target="_blank" rel="noopener">voxtiva.com ↗</a>
+      </div>
+      <div class="media">
+        <div class="vox-stage" aria-hidden="true">
+          <div class="grid">
+            <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-host-poster.jpg" src="assets/voxtiva-tile-host.mp4"></video>
+            <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-client-poster.jpg" src="assets/voxtiva-tile-client.mp4"></video>
+            <video muted loop playsinline autoplay preload="metadata" poster="assets/voxtiva-tile-third-poster.jpg" src="assets/voxtiva-tile-third.mp4"></video>
+          </div>
+          <div class="vox-cap">
+            <span>「金曜までにお送りします」 → <b>"We'll send it by Friday."</b></span>
+            <span>"¿Podemos ver los números?" → <b>"Can we look at the numbers?"</b></span>
+            <span>「予算は問題ありません」 → <b>"The budget is not a problem."</b></span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="ventures" class="wrap">
+    <p class="kick">2016 — 2025</p>
+    <h2 class="big">Companies <span class="serif">built &amp; run.</span></h2>
+
+    <div class="band reveal">
+      <div class="bg" data-para="0.18"><img src="assets/craftease-kit.jpg" alt="Craft-Ease paint-by-numbers kit with numbered paints and brushes" loading="lazy"></div>
+      <div class="info">
+        <div>
+          <span class="meta">2016 — 2025 · HONG KONG</span>
+          <h3>Craft-Ease</h3>
+          <p class="sub">Paint-by-numbers and diamond-painting kits, sold worldwide. Built from zero into a 20+ person company.</p>
+        </div>
+        <div class="chipline"><span class="chip">$2.5M+ ANNUAL REVENUE</span><span class="chip">20+ TEAM</span></div>
+      </div>
+    </div>
+
+    <div class="band reveal">
+      <div class="bg" data-para="0.18"><img src="assets/risematcha-uji.jpg" alt="Sourcing visit in the Uji tea fields, Japan" loading="lazy"></div>
+      <div class="info">
+        <div>
+          <span class="meta">2018 — 2020 · TOKYO &amp; UJI</span>
+          <h3>RISE MATCHA</h3>
+          <p class="sub">Organic, ceremonial-grade matcha sourced directly in Uji — brand, packaging and e-commerce built end-to-end.</p>
+        </div>
+        <div class="chipline"><span class="chip">D2C BRAND</span><span class="chip">SOURCED AT ORIGIN</span></div>
+      </div>
+    </div>
+
+    <div class="band srband reveal">
+      <div class="bg"><img src="assets/social-root-logo.png" alt="Social Root logo" loading="lazy"></div>
+      <div class="info">
+        <div>
+          <span class="meta">2021 — 2025 · TOKYO</span>
+          <h3>Social Root Marketing</h3>
+          <p class="sub">Digital marketing agency for e-commerce and consumer brands — strategy, creative and roughly $2M in paid spend.</p>
+        </div>
+        <div class="chipline"><span class="chip">META</span><span class="chip">GOOGLE</span><span class="chip">TIKTOK</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="record" class="wrap">
+    <p class="kick">2008 — now</p>
+    <h2 class="big">Track <span class="serif">record.</span></h2>
+    <div class="record">
+      <div class="row now"><span class="yrs">2026 —</span><span class="who">Voxtiva <small>Founder</small></span><span class="what">Real-time AI meeting translation. In build.</span></div>
+      <div class="row now"><span class="yrs">2025 —</span><span class="who">Amnis <small>Founder</small></span><span class="what">Private, on-device AI dictation. In build.</span></div>
+      <div class="row"><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder</small></span><span class="what">Science-based consumer brand; product, manufacturing, e-commerce, operations.</span></div>
+      <div class="row"><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency; ~$2M paid spend across Meta, Google and TikTok.</span></div>
+      <div class="row"><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
+      <div class="row"><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce to $2.5M+ annual revenue with a 20+ person team.</span></div>
+      <div class="row"><span class="yrs">2008 — 16</span><span class="who">FIS, Hong Kong <small>Sales &amp; pre-sales</small></span><span class="what">Electronic trading and risk systems for banks and brokers across APAC.</span></div>
+    </div>
+  </section>
+
+  <section id="advisory" class="wrap">
+    <p class="kick">Selective engagements</p>
+    <h2 class="big">E-commerce <span class="serif">advisory.</span></h2>
+    <div class="advisory-grid">
+      <div class="advisory-card">
+        <p>
+          <strong>YuniqueS advises a select number of companies</strong> starting or
+          scaling e-commerce. The advice comes from operating, not theory: nine years
+          running our own stores, an agency's worth of paid-media spend, and the
+          unglamorous parts — logistics, support, cash flow.
+        </p>
+        <p>
+          Recent work includes helping an established consumer brand stand up its
+          e-commerce operation from scratch. Engagements are scoped, hands-on and honest
+          about what will and won't move the needle.
+        </p>
+      </div>
+      <div class="advisory-card greenc">
+        <h3>Where we help</h3>
+        <ul class="scope">
+          <li>Launch: platform, catalogue, payments, fulfilment</li>
+          <li>Paid acquisition on Meta, Google and TikTok</li>
+          <li>Conversion, retention and unit economics</li>
+          <li>AI-enabled workflows for lean teams</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="wrap">
+    <p class="kick">The founder</p>
+    <h2 class="big">Van David <span class="serif">Thai.</span></h2>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm the founder of YuniqueS — a Solvay-trained economist with nearly twenty
+          years on the commercial side of technology. Eight years selling electronic
+          trading systems to financial institutions in Hong Kong, then nine years
+          founding and scaling my own consumer businesses, leading teams of 20+ across
+          product, marketing, operations and supply chain.
+        </p>
+        <p>
+          Since 2025 I build AI products full-time, working with AI daily — designing,
+          coding and shipping with it. YuniqueS Ltd is the company behind that work:
+          the products above, and advisory engagements where our operating experience
+          is useful. Based in Tokyo; incorporated in Hong Kong.
+        </p>
+        <p class="sig">— Van David Thai</p>
+      </div>
+      <figure class="portrait reveal">
+        <img src="assets/david.jpg" alt="Van David Thai, founder of YuniqueS" loading="lazy">
+        <figcaption>VAN DAVID THAI · FOUNDER</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<div class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <h2>Let's build <span class="serif">something.</span></h2>
+    <p>Advisory, partnerships, product or investor conversations — reach us on LinkedIn.</p>
+    <a class="btn" href="https://www.linkedin.com/in/van-david-t-0627513" rel="me">Message on LinkedIn</a>
+    <div class="foot-inner">
+      <span>© 2026 YUNIQUES LTD. ALL RIGHTS RESERVED.</span>
+      <span>TOKYO · HONG KONG</span>
+      <a href="https://www.linkedin.com/in/van-david-t-0627513">LINKEDIN ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const els = document.querySelectorAll(".reveal, .stat");
+  if ("IntersectionObserver" in window && !reduced) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { threshold: 0.18 });
+    els.forEach((el) => io.observe(el));
+    setTimeout(() => els.forEach((el) => el.classList.add("in")), 3500);
+  } else {
+    els.forEach((el) => el.classList.add("in"));
+  }
+
+  /* parallax on [data-para] */
+  const paras = Array.from(document.querySelectorAll("[data-para]"));
+  if (paras.length && !reduced) {
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      paras.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        const f = parseFloat(el.dataset.para || "0.15");
+        const off = (r.top + r.height / 2 - vh / 2) * f;
+        el.style.transform = "translateY(" + off.toFixed(1) + "px)";
+      });
+      ticking = false;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+
+  /* typed composer */
+  const targets = document.querySelectorAll(".typed-m");
+  if (targets.length) {
+    const text = "I moved the review to Thursday — full notes are in the doc.";
+    if (reduced) targets.forEach((t) => (t.textContent = text));
+    else {
+      let i = 0, dir = 1;
+      const step = () => {
+        targets.forEach((t) => (t.textContent = text.slice(0, i)));
+        let delay = dir > 0 ? 45 : 14;
+        if (dir > 0 && i === text.length) { dir = -1; delay = 2600; }
+        else if (dir < 0 && i === 0) { dir = 1; delay = 700; }
+        else i += dir;
+        setTimeout(step, delay);
+      };
+      step();
+    }
+  }
+
+  /* pause offscreen videos */
+  if ("IntersectionObserver" in window) {
+    const vio = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const v = e.target;
+        if (e.isIntersecting) v.play?.().catch(() => {});
+        else v.pause?.();
+      }
+    }, { threshold: 0.1 });
+    document.querySelectorAll("video").forEach((v) => vio.observe(v));
+  }
+})();
+</script>
+
+</body>
+</html>
