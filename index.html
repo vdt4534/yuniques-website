@@ -195,7 +195,7 @@
   .vcard p { color: var(--ink-soft); font-size: 0.95rem; }
   .vcard .badge { margin-top: 0.7rem; align-self: flex-start; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--seal); border: 1.5px solid var(--seal); border-radius: 3px; padding: 0.15rem 0.5rem; transform: rotate(-1.5deg); }
   .sr-media { background: #FFFFFF; height: 100%; display: grid; place-items: center; padding: 2rem; }
-  .sr-media img { width: 58%; max-width: 200px; height: auto; object-fit: contain; }
+  .vcard .media .sr-media img { width: 62%; max-width: 200px; height: auto; object-fit: contain; }
 
   /* record */
   .record { border-top: 1px solid var(--ink); }
@@ -224,6 +224,9 @@
   ul.scope { list-style: none; border-top: 1px solid var(--ink); }
   ul.scope li { padding: 0.85rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.98rem; }
   ul.scope li::before { content: "→"; color: var(--seal); font-family: var(--mono); font-size: 0.85rem; }
+  .channels { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 1rem 1.7rem; align-items: center; }
+  .channels .ch { display: flex; align-items: center; gap: 0.55rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted); }
+  .channels svg { width: 1.35rem; height: 1.35rem; flex: none; }
   .about-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
   @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
   .about-inner p { color: var(--ink-soft); max-width: 62ch; }
@@ -519,7 +522,7 @@
       <div class="row reveal"><img class="logo" src="assets/tile-senolytic.png" alt=""><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder &amp; Director</small></span><span class="what">Longevity supplements made and sold in Japan — product, manufacturing, e-commerce and operations.</span></div>
       <div class="row reveal"><img class="logo" src="assets/social-root-logo.png" alt=""><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency for e-commerce and consumer brands. Managed roughly $2M in paid spend across Meta, Google and TikTok.</span></div>
       <div class="row reveal"><img class="logo cover" src="assets/tile-rise.jpg" alt="" style="background: #4CB944;"><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
-      <div class="row reveal"><img class="logo cover" src="assets/tile-craftease.jpg" alt=""><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce built from zero to $2.5M+ annual revenue, with a 20+ person team.</span></div>
+      <div class="row reveal"><img class="logo" src="assets/tile-craftease.png" alt=""><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce built from zero to $2.5M+ annual revenue, with a 20+ person team.</span></div>
       <div class="row reveal"><img class="logo" src="assets/fis-logo.png" alt=""><span class="yrs">2008 — 16</span><span class="who">FIS <small>Sales &amp; pre-sales</small></span><span class="what">Eight years selling electronic trading and risk systems to banks and brokers across APAC.</span></div>
     </div>
   </section>
@@ -544,12 +547,20 @@
           honest about what will and won't move the needle.
         </p>
       </div>
-      <ul class="scope">
-        <li>Launch: platform, catalogue, payments, fulfilment</li>
-        <li>Paid acquisition on Meta, Google and TikTok</li>
-        <li>Conversion, retention and unit economics</li>
-        <li>AI-enabled workflows for lean teams</li>
-      </ul>
+      <div>
+        <ul class="scope">
+          <li>Launch: platform, catalogue, payments, fulfilment</li>
+          <li>Paid acquisition on Meta, Google and TikTok</li>
+          <li>Conversion, retention and unit economics</li>
+          <li>AI-enabled workflows for lean teams</li>
+        </ul>
+        <div class="channels" aria-label="Advertising platforms">
+          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="none" stroke="#0081FB" stroke-width="3" stroke-linejoin="round" d="M5 16C5 11 8 8.5 11 11c3 2.5 4.5 7.5 7.5 10 3 2.5 8.5 2 8.5-5s-5.5-7.5-8.5-5c-3 2.5-4.5 7.5-7.5 10-3 2.5-6 0-6-5Z"/></svg>META ADS</span>
+          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFC107"/><stop offset="0.5" stop-color="#F44336"/><stop offset="1" stop-color="#9C27B0"/></linearGradient></defs><rect x="4" y="4" width="24" height="24" rx="7" fill="none" stroke="url(#igg)" stroke-width="2.6"/><circle cx="16" cy="16" r="5.4" fill="none" stroke="url(#igg)" stroke-width="2.6"/><circle cx="22.6" cy="9.4" r="1.7" fill="url(#igg)"/></svg>INSTAGRAM</span>
+          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25F4EE" d="M20.3 2.8c.5 3.2 2.6 5.3 5.9 5.5v4.3c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V2.8h4.3z"/><path fill="#FE2C55" d="M22.7 5.2c.5 3.2 2.6 5.3 5.9 5.5V15c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V5.2h4.3z"/><path fill="#0A0A0A" d="M21.5 4c.5 3.2 2.6 5.3 5.9 5.5v4.3c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V4h4.3z"/></svg>TIKTOK ADS</span>
+          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="16.2" y1="5.9" x2="8.4" y2="19.4" stroke="#FBBC04" stroke-width="6.6" stroke-linecap="round"/><circle cx="5.1" cy="25.1" r="3.3" fill="#34A853"/><line x1="16.2" y1="5.9" x2="27.3" y2="25.1" stroke="#4285F4" stroke-width="6.6" stroke-linecap="round"/></svg>GOOGLE ADS</span>
+        </div>
+      </div>
     </div>
   </section>
 
