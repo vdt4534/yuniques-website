@@ -51,7 +51,8 @@
   @keyframes drift { to { transform: translateX(-50%); } }
   .wall-row > * { width: clamp(150px, 18vw, 260px); aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; flex: none; }
   @media (prefers-reduced-motion: reduce) { .wall-row { animation: none; } }
-  .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 88%, transparent) 0%, color-mix(in srgb, var(--paper) 80%, transparent) 50%, color-mix(in srgb, var(--paper) 96%, transparent) 100%); }
+  .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 92%, transparent) 0%, color-mix(in srgb, var(--paper) 86%, transparent) 50%, color-mix(in srgb, var(--paper) 97%, transparent) 100%); }
+  .hero-grid > div:first-child { text-shadow: 0 0 18px var(--paper); }
   .hero-inner { position: relative; z-index: 1; width: 100%; padding: 4rem 0 4.5rem; }
   .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start; }
   @media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; } }
