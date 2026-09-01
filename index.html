@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YuniqueS — AI products, built by an operator</title>
+<title>YuniqueS Ltd — AI Products &amp; E-Commerce</title>
 <meta name="description" content="YuniqueS Ltd builds AI-native products — Amnis and Voxtiva — on nine years of consumer e-commerce operations. Selective e-commerce advisory.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23CF3721'/><text x='50' y='68' font-size='52' font-family='Georgia,serif' font-weight='900' fill='%23F7F6F2' text-anchor='middle'>Y</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
     --display: "Besley", Georgia, serif;
     --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
     --mono: "IBM Plex Mono", Menlo, monospace;
-    --pad: clamp(1.25rem, 4vw, 3rem);
+    --pad: clamp(1.5rem, 6vw, 5.5rem);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -34,7 +34,7 @@
   .wrap { max-width: 74rem; margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
 
   header { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .nav { display: flex; align-items: baseline; justify-content: space-between; padding: 0.9rem 0; gap: 1rem; }
+  .nav { display: flex; align-items: baseline; justify-content: space-between; padding-top: 0.9rem; padding-bottom: 0.9rem; gap: 1rem; }
   .wordmark { font-family: var(--display); font-weight: 800; font-size: 1.15rem; text-decoration: none; }
   .wordmark span { color: var(--seal); }
   .nav-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
@@ -53,7 +53,7 @@
   @media (prefers-reduced-motion: reduce) { .wall-row { animation: none; } }
   .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 92%, transparent) 0%, color-mix(in srgb, var(--paper) 86%, transparent) 50%, color-mix(in srgb, var(--paper) 97%, transparent) 100%); }
   .hero-grid > div:first-child { text-shadow: 0 0 18px var(--paper); }
-  .hero-inner { position: relative; z-index: 1; width: 100%; padding: 4rem 0 4.5rem; }
+  .hero-inner { position: relative; z-index: 1; width: 100%; padding-top: 5.5rem; padding-bottom: 5rem; }
   .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start; }
   @media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; } }
   .eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
@@ -235,7 +235,7 @@
 
   /* contact */
   .contact { background: var(--ink); color: var(--paper); margin-top: clamp(4rem, 9vh, 6.5rem); }
-  .contact-inner { padding: clamp(3rem, 7vh, 4.5rem) 0; display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: center; }
+  .contact-inner { padding-top: clamp(3rem, 7vh, 4.5rem); padding-bottom: clamp(3rem, 7vh, 4.5rem); display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: center; }
   @media (max-width: 760px) { .contact-inner { grid-template-columns: 1fr; } }
   .contact h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); }
   .contact p { color: #B9BCB6; margin-top: 0.8rem; max-width: 50ch; }
@@ -243,7 +243,7 @@
   .contact .btn.primary { background: var(--seal); border-color: var(--seal); }
   .contact .btn.primary:hover { background: var(--paper); color: var(--seal); }
   footer { background: var(--ink); color: #8B8E88; border-top: 1px solid #33373B; }
-  .foot-inner { padding: 1.4rem 0 1.6rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; }
+  .foot-inner { padding-top: 1.4rem; padding-bottom: 1.6rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; }
   footer a { color: #B9BCB6; text-decoration: none; }
   footer a:hover { color: var(--paper); }
 
