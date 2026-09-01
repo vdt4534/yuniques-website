@@ -194,18 +194,26 @@
   .vcard h3 { font-family: var(--display); font-weight: 800; font-size: 1.35rem; }
   .vcard p { color: var(--ink-soft); font-size: 0.95rem; }
   .vcard .badge { margin-top: 0.7rem; align-self: flex-start; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--seal); border: 1.5px solid var(--seal); border-radius: 3px; padding: 0.15rem 0.5rem; transform: rotate(-1.5deg); }
-  .sr-media { background: #101312; height: 100%; display: grid; place-items: center; padding: 2rem; }
-  .sr-media img { width: 55%; filter: invert(1) hue-rotate(180deg); }
+  .sr-media { background: #FFFFFF; height: 100%; display: grid; place-items: center; padding: 2rem; }
+  .sr-media img { width: 58%; max-width: 200px; height: auto; object-fit: contain; }
 
   /* record */
   .record { border-top: 1px solid var(--ink); }
-  .row { display: grid; grid-template-columns: 7.5rem 13rem 1fr; gap: 1.5rem; padding: 1.05rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .row { display: grid; grid-template-columns: 2.4rem 7rem 13rem 1fr; gap: 1.2rem; padding: 1.05rem 0; border-bottom: 1px solid var(--line); align-items: center; }
+  .row .logo { width: 2.4rem; height: 2.4rem; border-radius: 8px; border: 1px solid var(--line); background: #fff; object-fit: contain; padding: 0.3rem; }
+  .row .logo.cover { object-fit: cover; padding: 0; }
+  .row .logo.mono { display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.02em; color: #fff; background: #2E7D32; border: 0; }
+  .row .logo.mono.fis { background: #012834; font-size: 0.66rem; }
   .row .yrs { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
   .row .who { font-weight: 700; }
   .row .who small { display: block; font-weight: 500; color: var(--muted); font-size: 0.8rem; }
   .row .what { color: var(--ink-soft); font-size: 0.98rem; }
   .row.now .yrs::after { content: "NOW"; font-size: 0.62rem; color: var(--seal); border: 1px solid var(--seal); border-radius: 3px; padding: 0.05rem 0.3rem; margin-left: 0.5rem; letter-spacing: 0.1em; }
-  @media (max-width: 760px) { .row { grid-template-columns: 1fr; gap: 0.15rem; padding: 1rem 0; } }
+  @media (max-width: 760px) {
+    .row { grid-template-columns: 2.4rem 1fr; gap: 0.3rem 0.9rem; padding: 1rem 0; align-items: center; }
+    .row .logo { grid-row: span 2; }
+    .row .what { grid-column: 2; }
+  }
 
   /* advisory / about */
   .advisory-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; }
@@ -492,7 +500,7 @@
         <div class="body">
           <span class="yrs">2022 — 2025</span>
           <h3>Senolytic Lab</h3>
-          <p>Longevity supplements built and sold in Japan — product, manufacturing, e-commerce and operations end-to-end.</p>
+          <p>Longevity supplements made and sold in Japan — product, manufacturing, e-commerce and operations end-to-end.</p>
           <span class="badge">JAPAN E-COMMERCE</span>
         </div>
       </article>
@@ -506,13 +514,13 @@
       <span class="stamp">2008 — now</span>
     </div>
     <div class="record">
-      <div class="row now reveal"><span class="yrs">2026 —</span><span class="who">Voxtiva <small>Founder</small></span><span class="what">Real-time AI meeting translation. In build.</span></div>
-      <div class="row now reveal"><span class="yrs">2025 —</span><span class="who">Amnis <small>Founder</small></span><span class="what">Private, on-device AI dictation. In build.</span></div>
-      <div class="row reveal"><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder &amp; Director</small></span><span class="what">Longevity supplements built and sold in Japan — product, manufacturing, e-commerce and operations.</span></div>
-      <div class="row reveal"><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency for e-commerce and consumer brands. Managed roughly $2M in paid spend across Meta, Google and TikTok.</span></div>
-      <div class="row reveal"><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
-      <div class="row reveal"><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce built from zero to $2.5M+ annual revenue, with a 20+ person team.</span></div>
-      <div class="row reveal"><span class="yrs">2008 — 16</span><span class="who">FIS <small>Sales &amp; pre-sales</small></span><span class="what">Eight years selling electronic trading and risk systems to banks and brokers across APAC.</span></div>
+      <div class="row now reveal"><img class="logo" src="assets/voxtiva-symbol.svg" alt=""><span class="yrs">2026 —</span><span class="who">Voxtiva <small>Founder</small></span><span class="what">Real-time AI meeting translation. In build.</span></div>
+      <div class="row now reveal"><img class="logo" src="assets/amnis-icon-black.png" alt=""><span class="yrs">2025 —</span><span class="who">Amnis <small>Founder</small></span><span class="what">Private, on-device AI dictation. In build.</span></div>
+      <div class="row reveal"><img class="logo cover" src="assets/tile-senolytic.jpg" alt=""><span class="yrs">2022 — 25</span><span class="who">Senolytic Lab <small>Co-founder &amp; Director</small></span><span class="what">Longevity supplements made and sold in Japan — product, manufacturing, e-commerce and operations.</span></div>
+      <div class="row reveal"><img class="logo" src="assets/social-root-logo.png" alt=""><span class="yrs">2021 — 25</span><span class="who">Social Root Marketing <small>Founder &amp; CEO</small></span><span class="what">Digital marketing agency for e-commerce and consumer brands. Managed roughly $2M in paid spend across Meta, Google and TikTok.</span></div>
+      <div class="row reveal"><img class="logo cover" src="assets/tile-rise.jpg" alt=""><span class="yrs">2018 — 20</span><span class="who">RISE MATCHA <small>Co-founder</small></span><span class="what">Organic Japanese matcha brand — sourcing, packaging, e-commerce.</span></div>
+      <div class="row reveal"><img class="logo cover" src="assets/tile-craftease.jpg" alt=""><span class="yrs">2016 — 25</span><span class="who">Craft-Ease <small>Founder &amp; CEO</small></span><span class="what">Arts-and-crafts e-commerce built from zero to $2.5M+ annual revenue, with a 20+ person team.</span></div>
+      <div class="row reveal"><span class="logo mono fis" aria-hidden="true">FIS</span><span class="yrs">2008 — 16</span><span class="who">FIS <small>Sales &amp; pre-sales</small></span><span class="what">Eight years selling electronic trading and risk systems to banks and brokers across APAC.</span></div>
     </div>
   </section>
 
