@@ -224,9 +224,16 @@
   ul.scope { list-style: none; border-top: 1px solid var(--ink); }
   ul.scope li { padding: 0.85rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.98rem; }
   ul.scope li::before { content: "→"; color: var(--seal); font-family: var(--mono); font-size: 0.85rem; }
-  .channels { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 1rem 1.7rem; align-items: center; }
-  .channels .ch { display: flex; align-items: center; gap: 0.55rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted); }
-  .channels svg { width: 1.35rem; height: 1.35rem; flex: none; }
+  .channels { margin-top: 2.4rem; padding-top: 1.7rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 1.4rem 2.8rem; align-items: center; }
+  .channels .ch-cap { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--muted); }
+  .channels .ch { display: flex; align-items: center; gap: 0.75rem; font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+  .channels .ch svg { width: 2.7rem; height: 2.7rem; flex: none; opacity: 0; transform: translateX(-90px) rotate(-360deg);
+    transition: transform 0.9s cubic-bezier(0.34, 1.45, 0.45, 1), rotate 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.45s ease;
+    transition-delay: calc(var(--i, 0) * 0.13s); }
+  .channels.in .ch svg { opacity: 1; transform: none; animation: chbob 3.4s ease-in-out calc(1.2s + var(--i, 0) * 0.45s) infinite; }
+  .channels .ch:hover svg { rotate: 360deg; }
+  @keyframes chbob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+  @media (prefers-reduced-motion: reduce) { .channels .ch svg { opacity: 1; transform: none; transition: none; animation: none; } }
   .about-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
   @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
   .about-inner p { color: var(--ink-soft); max-width: 62ch; }
@@ -547,20 +554,19 @@
           honest about what will and won't move the needle.
         </p>
       </div>
-      <div>
-        <ul class="scope">
-          <li>Launch: platform, catalogue, payments, fulfilment</li>
-          <li>Paid acquisition on Meta, Google and TikTok</li>
-          <li>Conversion, retention and unit economics</li>
-          <li>AI-enabled workflows for lean teams</li>
-        </ul>
-        <div class="channels" aria-label="Advertising platforms">
-          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="none" stroke="#0081FB" stroke-width="3" stroke-linejoin="round" d="M5 16C5 11 8 8.5 11 11c3 2.5 4.5 7.5 7.5 10 3 2.5 8.5 2 8.5-5s-5.5-7.5-8.5-5c-3 2.5-4.5 7.5-7.5 10-3 2.5-6 0-6-5Z"/></svg>META ADS</span>
-          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFC107"/><stop offset="0.5" stop-color="#F44336"/><stop offset="1" stop-color="#9C27B0"/></linearGradient></defs><rect x="4" y="4" width="24" height="24" rx="7" fill="none" stroke="url(#igg)" stroke-width="2.6"/><circle cx="16" cy="16" r="5.4" fill="none" stroke="url(#igg)" stroke-width="2.6"/><circle cx="22.6" cy="9.4" r="1.7" fill="url(#igg)"/></svg>INSTAGRAM</span>
-          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25F4EE" d="M20.3 2.8c.5 3.2 2.6 5.3 5.9 5.5v4.3c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V2.8h4.3z"/><path fill="#FE2C55" d="M22.7 5.2c.5 3.2 2.6 5.3 5.9 5.5V15c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V5.2h4.3z"/><path fill="#0A0A0A" d="M21.5 4c.5 3.2 2.6 5.3 5.9 5.5v4.3c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V4h4.3z"/></svg>TIKTOK ADS</span>
-          <span class="ch"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="16.2" y1="5.9" x2="8.4" y2="19.4" stroke="#FBBC04" stroke-width="6.6" stroke-linecap="round"/><circle cx="5.1" cy="25.1" r="3.3" fill="#34A853"/><line x1="16.2" y1="5.9" x2="27.3" y2="25.1" stroke="#4285F4" stroke-width="6.6" stroke-linecap="round"/></svg>GOOGLE ADS</span>
-        </div>
-      </div>
+      <ul class="scope">
+        <li>Launch: platform, catalogue, payments, fulfilment</li>
+        <li>Paid acquisition on Meta, Google and TikTok</li>
+        <li>Conversion, retention and unit economics</li>
+        <li>AI-enabled workflows for lean teams</li>
+      </ul>
+    </div>
+    <div class="channels reveal" aria-label="Advertising platforms">
+      <span class="ch-cap">$2M MANAGED ACROSS</span>
+      <span class="ch" style="--i:0"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="none" stroke="#0081FB" stroke-width="3" stroke-linejoin="round" d="M5 16C5 11 8 8.5 11 11c3 2.5 4.5 7.5 7.5 10 3 2.5 8.5 2 8.5-5s-5.5-7.5-8.5-5c-3 2.5-4.5 7.5-7.5 10-3 2.5-6 0-6-5Z"/></svg>META ADS</span>
+      <span class="ch" style="--i:1"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFC107"/><stop offset="0.5" stop-color="#F44336"/><stop offset="1" stop-color="#9C27B0"/></linearGradient></defs><rect x="4" y="4" width="24" height="24" rx="7" fill="none" stroke="url(#igg)" stroke-width="2.6"/><circle cx="16" cy="16" r="5.4" fill="none" stroke="url(#igg)" stroke-width="2.6"/><circle cx="22.6" cy="9.4" r="1.7" fill="url(#igg)"/></svg>INSTAGRAM</span>
+      <span class="ch" style="--i:2"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#25F4EE" d="M20.3 2.8c.5 3.2 2.6 5.3 5.9 5.5v4.3c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V2.8h4.3z"/><path fill="#FE2C55" d="M22.7 5.2c.5 3.2 2.6 5.3 5.9 5.5V15c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V5.2h4.3z"/><path fill="#0A0A0A" d="M21.5 4c.5 3.2 2.6 5.3 5.9 5.5v4.3c-2.2 0-4.2-.7-5.9-1.9v8.8c0 4.5-3.6 8.1-8 8.1s-8-3.6-8-8.1 3.6-8.1 8-8.1c.5 0 1 .1 1.5.2v4.5c-.5-.2-1-.3-1.5-.3-2.1 0-3.7 1.7-3.7 3.7s1.6 3.7 3.7 3.7 3.7-1.7 3.7-3.7V4h4.3z"/></svg>TIKTOK ADS</span>
+      <span class="ch" style="--i:3"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="16.2" y1="5.9" x2="8.4" y2="19.4" stroke="#FBBC04" stroke-width="6.6" stroke-linecap="round"/><circle cx="5.1" cy="25.1" r="3.3" fill="#34A853"/><line x1="16.2" y1="5.9" x2="27.3" y2="25.1" stroke="#4285F4" stroke-width="6.6" stroke-linecap="round"/></svg>GOOGLE ADS</span>
     </div>
   </section>
 
