@@ -14,4 +14,4 @@ YuniqueS Ltd's public site: AI products (Amnis, Voxtiva) plus e-commerce advisor
 
 ## Deployment
 
-Deployed via GitHub Pages, legacy build, source = `main` branch root; there is no Actions workflow, Pages rebuilds automatically on push to `main`. `CNAME` pins the custom domain to `yuniques.com`. There is no staging: a push to `main` is live. Treat a push or merge to `main` as a production deployment: it needs the owner's explicit authorization. Verify changes locally first.
+Deployed via GitHub Pages, legacy build, source = `main` branch root; there is no Actions workflow, Pages rebuilds automatically on push to `main`. `CNAME` pins the custom domain to `yuniques.com`. There is no staging: a push or merge to `main` is a production deployment. Verify changes locally first.
